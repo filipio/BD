@@ -1,10 +1,7 @@
 # BD
 Projekt z BD
 
-Zespół:
--Filip Juza
--Bartosz Włodarski
--Karol Zając
+Zespół: Filip Juza, Bartosz Włodarski, Karol Zając
 
 
 Użytkownicy mogą dołączać do klas za pomocą specjalnego kodu, który jest udostępniony przez właściciela klasy. Klasa ma swojego ownera, który uruchamia quizy rankingowe, w których mogą(ale nie muszą ) wziąć udział członkowie klasy. Quiz jest dostępny w danym przedziale czasowym. Quizy rankingowe udostępniane są na tablicy danej klasy w formie postów. 
