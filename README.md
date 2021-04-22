@@ -15,8 +15,11 @@ Każdy użytkownik może wrzucać posty(tekstowe) na klasę.
 
 Tworzenie quizu:
 Dla każdego rodzaju quizu wybierana jest ilość czasu na każde pytanie ( zwykły / rankingowy ) 
+
 Wybór kategorii, z którego wybierane są pytania ( zwykły / rankingowy ) 
+
 Dodanie nazwy quizu ( rankingowy )
+
 StartDate oraz EndDate (rankingowy)
 
 Uczestnicy quizów rankingowych są dodawani do Quiz Participants, wraz z zdobytym wynikiem.
