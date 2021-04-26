@@ -1,5 +1,6 @@
-# BD
+# Aplikacja do nauki
 Aplikacja webowa służąca do nauki poprzez wypełnianie testów
+Celem projektu jest zapoznanie się z mechanizmem komunikacji z bazą danych z poziomu kodu aplikacji.
 Projekt powiązany z przedmiotem "Bazy Danych", tworzony przez studentów AGH, WIEiT, Informatyka, rok II
 
 Zespół: Filip Juza, Bartosz Włodarski, Karol Zając
