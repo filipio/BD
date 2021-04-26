@@ -1,5 +1,6 @@
 # BD
-Projekt z BD
+Aplikacja webowa służąca do nauki poprzez wypełnianie testów
+Projekt powiązany z przedmiotem "Bazy Danych", tworzony przez studentów AGH, WIEiT, Informatyka, rok II
 
 Zespół: Filip Juza, Bartosz Włodarski, Karol Zając
 
