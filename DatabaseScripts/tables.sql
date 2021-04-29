@@ -2,8 +2,8 @@ create table Category
 (
     CategoryID   int auto_increment
         primary key,
-    ClassID      int        not null,
-    Categoryname linestring not null,
+    ClassID      int         not null,
+    Categoryname varchar(50) not null,
     constraint Category_Class_ClassID_fk
         foreign key (ClassID) references Class (ClassID)
 );
@@ -11,8 +11,8 @@ create table Category
 create table Question
 (
     QuestionID int auto_increment,
-    Data       linestring not null,
-    UserID     int        not null,
+    Data       varchar(50) not null,
+    UserID     int         not null,
     constraint Question_QuestionID_uindex
         unique (QuestionID),
     constraint Question_User_UserID_fk
@@ -25,9 +25,9 @@ alter table Question
 create table Answer
 (
     AnswerID   int auto_increment,
-    QuestionID int        not null,
-    Sentence   linestring not null,
-    IsCorrect  bit        not null,
+    QuestionID int         not null,
+    Sentence   varchar(50) not null,
+    IsCorrect  bit         not null,
     constraint Answer_AnswerID_uindex
         unique (AnswerID),
     constraint Answer_Question_QuestionID_fk
@@ -52,7 +52,7 @@ create table Class
 (
     ClassID   int auto_increment
         primary key,
-    Name      linestring               not null,
+    Name      varchar(50)              not null,
     Owner     int                      not null,
     ClassCode varchar(10) charset utf8 not null,
     constraint Class_ClassCode_uindex
@@ -76,10 +76,10 @@ create table Quiz
 (
     QuizID     int auto_increment
         primary key,
-    CategoryID int        null,
-    QuizTitle  linestring not null,
-    StartDate  datetime   not null,
-    EndDate    datetime   not null,
+    CategoryID int         null,
+    QuizTitle  varchar(50) not null,
+    StartDate  datetime    not null,
+    EndDate    datetime    not null,
     constraint Quiz_Category_CategoryID_fk
         foreign key (CategoryID) references Category (CategoryID)
 );
@@ -109,8 +109,8 @@ create table User
 (
     UserID    int auto_increment
         primary key,
-    FirstName linestring not null,
-    LastName  linestring not null,
-    Email     linestring not null,
-    Password  linestring not null
+    FirstName varchar(50) not null,
+    LastName  varchar(50) not null,
+    Email     varchar(50) not null,
+    Password  varchar(50) not null
 );
