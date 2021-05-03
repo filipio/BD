@@ -39,3 +39,78 @@ BEGIN
     INSERT INTO QuizParticipant(quizid, userid, score) VALUE(_quizID, _userID, _score);
 END
 
+                                                                    
+      
+                                                                  
+CREATE PROCEDURE createQuestion(
+    IN sentence VARCHAR(500),
+    IN user_id INT(11),
+    IN Answer1 VARCHAR(500),
+    IN Answer2 VARCHAR(500),
+    IN Answer3 VARCHAR(500),
+    IN Answer4 VARCHAR(500),
+    IN correctAnsNum INT(1),
+    OUT success BIT)
+BEGIN
+    DECLARE inserted_id INT(11);
+    START TRANSACTION;
+
+    INSERT INTO Question (Data, UserID)
+    VALUES (sentence, user_id);
+
+    SET inserted_id = LAST_INSERT_ID();
+
+    IF correctAnsNum = 1 THEN
+        BEGIN
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer1, 1);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer2, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer3, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer4, 0);
+            COMMIT;
+        END;
+    ELSEIF correctAnsNum = 2 THEN
+        BEGIN
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer1, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer2, 1);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer3, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer4, 0);
+            COMMIT;
+        END;
+    ELSEIF correctAnsNum = 3 THEN
+        BEGIN
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer1, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer2, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer3, 1);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer4, 0);
+            COMMIT;
+        END;
+    ELSEIF correctAnsNum = 4 THEN
+        BEGIN
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer1, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer2, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer3, 0);
+            INSERT INTO Answer (QuestionID, Sentence, IsCorrect)
+            VALUES (inserted_id, Answer4, 1);
+            COMMIT;
+        END;
+    ELSE
+        ROLLBACK ;
+        SET success = 0;
+    end if;
+    SET success = 1;
+end;
