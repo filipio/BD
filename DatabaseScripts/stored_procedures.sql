@@ -20,3 +20,22 @@ BEGIN
     INSERT INTO Class (Name, Owner, ClassCode)
     VALUES (class_name, owner_id, join_code);
 END;
+
+
+
+
+CREATE PROCEDURE joinClass(IN _userID INT, IN _classCode VARCHAR(10))
+BEGIN
+    DECLARE _classID INT;
+    SELECT ClassID INTO _classID FROM Class WHERE ClassCode = _classCode;
+    INSERT INTO ClassParticipant (UserID, ClassID, JoinDate) VALUES(_userID, _classID, NOW());
+
+END
+
+
+
+CREATE PROCEDURE addQuizParticipant(IN _quizID INT, IN _userID INT, IN _score INT)
+BEGIN
+    INSERT INTO QuizParticipant(quizid, userid, score) VALUE(_quizID, _userID, _score);
+END
+
