@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {HttpParams} from "@angular/common/http";
+import { Observable } from 'rxjs';
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbServiceService {
+
+    currUserDataFlow : any;
+    currUser : any;
 
     url = "http://localhost:3000/users";
 
@@ -13,13 +18,16 @@ export class DbServiceService {
 
    }
 
-   getUsers(){
-       return this.http.get(this.url);
+   getUser(){
+       return this.currUser;
    }
 
    user_doLogin(email, password){
-    return this.http.get(this.url + '/' + email + '/' + password);
-
+    this.currUserDataFlow = this.http.get(`${this.url}/${email}/${password}`);
+    this.currUserDataFlow.subscribe(data => this.currUser = data, (err : HttpErrorResponse) => {
+        console.log(err);
+        this.currUser = undefined;
+    })
    }
 
    register_user(email, password, name, lastname){
