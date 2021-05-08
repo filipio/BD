@@ -35,7 +35,7 @@ app.get('/users/:email/:password', (req, res) => {
             }
             else{
                 console.log("OK!");
-                console.log(results);
+                //console.log(results);
                 if(results.length  > 0 )
                     if(results)
                         res.status(200).json(results);

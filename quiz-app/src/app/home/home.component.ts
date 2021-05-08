@@ -11,9 +11,8 @@ export class HomeComponent implements OnInit {
   constructor(private service : DbServiceService) { }
 
   classes: any
-  
   ngOnInit(): void {
-    //this.classes = getClasses();
+    this.service.getClasses().subscribe(data => this.classes = data);
   }
 
   

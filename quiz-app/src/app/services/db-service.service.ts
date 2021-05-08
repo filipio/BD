@@ -20,12 +20,13 @@ export class DbServiceService {
    }
 
    getUser(){
-       return this.currUser;
+       return this.currUser[0];
    }
 
    getClasses()
    {
-      return this.http.get(`${this.urlClasses}/${this.getUser()}`);
+      console.log(this.getUser().UserID);
+      return this.http.get(`${this.urlClasses}/${this.getUser().UserID}`);
    }
 
    user_doLogin(email, password){

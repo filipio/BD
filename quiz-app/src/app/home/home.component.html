@@ -1,3 +1,5 @@
 <app-header></app-header>
 <h1>HOME IS WORKING!</h1>
-<li></li>
+<li *ngFor = "let class of classes">
+    {{class.Name}}
+</li>
