@@ -31,11 +31,19 @@ app.get('/users/:email/:password', (req, res) => {
             if(err) {
                 console.log("error occured.");
                 console.error(err);
-                res.status(500).json({status : 'error'});
+                res.status(500).json({error : 'error'});
             }
             else{
                 console.log("OK!");
-                res.status(200).json(results);
+                console.log(results);
+                if(results.length  > 0 )
+                    if(results)
+                        res.status(200).json(results);
+                    else
+                        res.status(500).json({msg : 'error'});
+                else{
+                    res.status(500).json({error : 'error'});
+                }
             }
 
         })

@@ -1,6 +1,8 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import { DbServiceService } from '../services/db-service.service';
+import {Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +11,8 @@ import { DbServiceService } from '../services/db-service.service';
 })
 export class LoginComponent implements OnInit {
   addForm: FormGroup;
-//   info : any = undefined;
 
-  constructor(public service : DbServiceService) {
+  constructor(private service : DbServiceService, private router : Router) {
     this.addForm = new FormGroup({
       email: new FormControl('Adres email'),
       password: new FormControl('Twoje hasło'),
@@ -23,12 +24,24 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
+  moveToRegister() : void{
+      this.router.navigate(['register']);
+  }
+
+  userSubmit(): void {
     const form = this.addForm.value;
-    this.service.register_user(form.email, form.password, form.name, form.lastname);
-    // this.service.user_doLogin(form.email, form.password).subscribe(data => {this.info = data;
-        // console.log(this.info);
-    // });
+    this.service.user_doLogin(form.email, form.password);
+    // if(this.service.getUser() !== undefined){
+    //     console.log("user is ok.")
+    //     this.router.navigate(['home']);
+    // }
+    this.service.currUserDataFlow.subscribe(data => {
+            this.router.navigate(['home']);
+    }, (err : HttpErrorResponse) => {
+        console.log("error with user ", err);
+    })
+    // this.service.currUser.subscribe(data => this.router.navigate(['/home']), (err)
+
   }
 
 
