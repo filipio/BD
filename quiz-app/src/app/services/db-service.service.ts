@@ -13,6 +13,7 @@ export class DbServiceService {
     currUser : any;
 
     url = "http://localhost:3000/users";
+    urlClasses = "http://localhost:3000/classes";
 
   constructor(private http : HttpClient) {
 
@@ -20,6 +21,11 @@ export class DbServiceService {
 
    getUser(){
        return this.currUser;
+   }
+
+   getClasses()
+   {
+      return this.http.get(`${this.urlClasses}/${this.getUser()}`);
    }
 
    user_doLogin(email, password){

@@ -48,6 +48,36 @@ app.get('/users/:email/:password', (req, res) => {
 
         })
     })
+
+
+
+
+    app.get('/classes/:userID', (req, res) => {
+        var userID = req.params.userID;
+        connection.query('SELECT * FROM Class INNER JOIN ClassParticipant ON Class.ClassID = ClassParticipant.ClassID AND ClassParticipant.UserID = ?',[userID],
+         (err, results) => {
+            if(err) {
+                console.log("error occured.");
+                console.error(err);
+                res.status(500).json({error : 'error'});
+            }
+            else{
+                console.log("OK!");
+                console.log(results);
+                if(results.length  > 0 )
+                    if(results)
+                        res.status(200).json(results);
+                    else
+                        res.status(500).json({msg : 'error'});
+                else{
+                    res.status(500).json({error : 'error'});
+                }
+            }
+
+        })
+    })
+
+
 app.post('/users', function(req, res) {
     connection.query('CALL registerUser(?,?,?,?)', [req.body.firstname, req.body.lastname, req.body.email, req.body.password], (err, results ) => {
         console.log("name of the user" + req.body.firstname);
