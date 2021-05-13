@@ -22,6 +22,7 @@
     "bootstrap": "^5.0.0",
     "cors": "^2.8.5",
     "mysql": "^2.18.1",
+    "ngx-vertical-timeline": "0.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
