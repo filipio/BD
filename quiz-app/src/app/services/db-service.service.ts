@@ -42,4 +42,10 @@ export class DbServiceService {
     
     this.http.post(this.url, {email : email, password : password, firstname : name , lastname : lastname}).subscribe(data => console.log(data));
    }
+
+   joinClassByCode(code)
+   {
+      console.log(this.getUser().UserID);
+      this.http.post(this.urlClasses, {userID : this.getUser().UserID, classCode : code});
+   }
 }
