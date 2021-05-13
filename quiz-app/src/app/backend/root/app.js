@@ -22,7 +22,7 @@ app.use(function (request, response, next) {
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-app.use(app.router());
+// app.use(app.router());
   
 
 app.get('/users/:email/:password', (req, res) => {
@@ -96,6 +96,7 @@ app.post('/users', function(req, res) {
 });
 
 app.post('/classes', function(req, res) {
+    console.log("joining a class!");
     connection.query('CALL joinClass(?,?)', [req.body.userID, req.body.classCode], (err, results ) => {
 
         if(err) {
