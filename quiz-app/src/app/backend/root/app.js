@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 const bodyParser = require('body-parser');
 const port = 3000;
@@ -14,14 +16,14 @@ var app = express();
 
 connection.connect()
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(function (request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
+// app.use(app.router());
   
 
 app.get('/users/:email/:password', (req, res) => {
@@ -90,6 +92,22 @@ app.post('/users', function(req, res) {
         }
         else{
             console.log("registered!");
+            res.status(200).json({status : 'ok!'});
+        }
+    })
+});
+
+app.post('/classes', function(req, res) {
+    console.log("joining a class!");
+    connection.query('CALL joinClass(?,?)', [req.body.userID, req.body.classCode], (err, results ) => {
+
+        if(err) {
+            console.log("error occured.");
+            console.error(err);
+            res.status(500).json({status : 'error'});
+        }
+        else{
+            console.log("joined class!");
             res.status(200).json({status : 'ok!'});
         }
     })

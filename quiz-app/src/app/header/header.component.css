@@ -34,4 +34,18 @@
     align-items: center;
     height: 50px;
   }
-  
+
+  #join {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  #joinInput{
+    display: inline-block;
+  }
+  #joinSubmit{
+    display: inline-block;
+  }
+  #joinClass {
+    display: inline-block;
+  }
