@@ -14,6 +14,7 @@ export class DbServiceService {
 
     url = "http://localhost:3000/users";
     urlClasses = "http://localhost:3000/classes";
+    urlQuestions = "http://localhost:3000/questions";
 
   constructor(private http : HttpClient) {
 
@@ -30,8 +31,9 @@ export class DbServiceService {
    }
 
    user_doLogin(email, password){
+
     this.currUserDataFlow = this.http.get(`${this.url}/${email}/${password}`);
-    this.currUserDataFlow.subscribe(data => this.currUser = data, (err : HttpErrorResponse) => {
+    this.currUserDataFlow.subscribe(data => {console.log(data); this.currUser = data;}, (err : HttpErrorResponse) => {
         console.log(err);
         this.currUser = undefined;
     })
@@ -41,5 +43,16 @@ export class DbServiceService {
        console.log("user register")
     
     this.http.post(this.url, {email : email, password : password, firstname : name , lastname : lastname}).subscribe(data => console.log(data));
+   }
+
+   getQuestions()
+   {
+     console.log("Trying to get question ", this.getUser());
+    return this.http.get(`${this.urlQuestions}/${this.getUser().UserID}`);
+   }
+
+   createQuestion(sentence, correct, answer1, answer2, answer3)
+   {
+      this.http.post(this.urlQuestions, {sentence: sentence, userID: this.getUser().UserID, correct: correct, answer1: answer1, answer2: answer2, answer3: answer3}).subscribe(data => console.log(data));
    }
 }

@@ -9,6 +9,8 @@ import {LoginComponent} from '../app/login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { MyQuestionsComponent } from './my-questions/my-questions.component';
+import { DbServiceService } from './services/db-service.service';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { HeaderComponent } from './header/header.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    MyQuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { HeaderComponent } from './header/header.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DbServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

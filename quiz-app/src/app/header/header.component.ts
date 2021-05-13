@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     else return false;
   }
   public logOut(){
-    this.userInfo=undefined;
-    this.service.currUser=undefined;
+    //this.userInfo=undefined;
+    //this.service.currUser=undefined;
   }
 }

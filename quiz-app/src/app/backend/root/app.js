@@ -6,7 +6,8 @@ var connection = mysql.createConnection({
     host: 'mysql.agh.edu.pl',
     user: 'karolzaj',
     password: 'c1KbMPKuLxMSdNdY',
-    database: 'karolzaj'
+    database: 'karolzaj',
+    multipleStatements: true
 
 })
 var app = express();
@@ -24,6 +25,7 @@ app.use(function (request, response, next) {
   
 
 app.get('/users/:email/:password', (req, res) => {
+        console.log("Try to log");
         var email = req.params.email;
         var password = req.params.password;
         connection.query('SELECT * FROM User WHERE Email = ? AND Password = ?',[email,password],
@@ -34,7 +36,7 @@ app.get('/users/:email/:password', (req, res) => {
                 res.status(500).json({error : 'error'});
             }
             else{
-                console.log("OK!");
+                console.log("OK logged!");
                 //console.log(results);
                 if(results.length  > 0 )
                     if(results)
@@ -96,4 +98,47 @@ app.post('/users', function(req, res) {
 app.listen(port, () => {
     console.log(`App is listening on ${port}.`)
 })
+
+
+
+app.get('/questions/:userID', (req, res) => {
+    console.log("Trying to get questions");
+    var userID = req.params.userID;
+    connection.query('SELECT * FROM Question WHERE UserID = ?',[userID],
+     (err, results) => {
+        if(err) {
+            console.log("error occured.");
+            console.error(err);
+            res.status(500).json({error : 'error'});
+        }
+        else{
+            console.log("OK!");
+            console.log(results);
+            if(results.length  > 0 )
+                if(results)
+                    res.status(200).json(results);
+                else
+                    res.status(500).json({msg : 'error'});
+            else{
+                res.status(500).json({error : 'error'});
+            }
+        }
+
+    })
+})
+
+
+app.post('/questions', function(req, res) {
+    connection.query('CALL createQuestion(?,?,?,?,?,?,?,@res)', [req.body.sentence, req.body.userID, req.body.correct, req.body.answer1, req.body.answer2, req.body.answer3, 1], (err, results ) => {
+        if(err) {
+            console.log("error occured during posting question.");
+            console.error(err);
+            res.status(500).json({status : 'error during posting question'});
+        }
+        else{
+            console.log("ok posting question!");
+            res.status(200).json({status : 'ok posting question!'});
+        }
+    })
+});
 
