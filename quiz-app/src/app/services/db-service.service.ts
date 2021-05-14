@@ -16,6 +16,7 @@ export class DbServiceService {
     urlClasses = "http://localhost:3000/classes";
     urlQuestions = "http://localhost:3000/questions";
     urlCategories = "http://localhost:3000/categories";
+    urlQuiz = "http://localhost:3000/quiz";
   constructor(private http : HttpClient) {
 
    }
@@ -64,5 +65,10 @@ export class DbServiceService {
    {
      console.log("Trying to get categories for "+ classID);
      return this.http.get(`${this.urlCategories}/${classID}`);
+   }
+
+   createQuiz(categoryID,quiz_name, start_date, end_date, num_of_questions){
+      console.log("Posting Quiz")
+      this.http.post(this.urlQuiz, {categoryID: categoryID, title: quiz_name, start: start_date, end: end_date, n_of_questions: num_of_questions}).subscribe(data => console.log(data));
    }
 }

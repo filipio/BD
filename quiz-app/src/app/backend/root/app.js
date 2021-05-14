@@ -184,5 +184,19 @@ app.get('/categories/:classID', (req, res) => {
         }
 
     })
-})
+});
+
+app.post('/quiz', function(req, res) {
+    connection.query('CALL createQuiz(?,?,?,?,?)', [req.body.categoryID, req.body.title, req.body.start, req.body.end, req.body.n_of_questions], (err, results ) => {
+        if(err) {
+            console.log("error occured during posting quiz.");
+            console.error(err);
+            res.status(500).json({status : 'error during posting quiz'});
+        }
+        else{
+            console.log("ok posting quiz!");
+            res.status(200).json({status : 'ok posting quiz!'});
+        }
+    })
+});
 

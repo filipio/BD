@@ -14,6 +14,7 @@ import { DbServiceService } from './services/db-service.service';
 import { TimelineComponent } from './timeline/timeline.component';
 import { NgxVerticalTimelineModule } from 'ngx-vertical-timeline';
 import { ClassComponent } from './class/class.component';
+import { ClassFormComponent } from './class-form/class-form.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ClassComponent } from './class/class.component';
     HeaderComponent,
     MyQuestionsComponent,
     TimelineComponent,
-    ClassComponent
+    ClassComponent,
+    ClassFormComponent
   ],
   imports: [
     BrowserModule,
