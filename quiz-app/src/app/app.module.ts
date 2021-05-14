@@ -15,7 +15,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { NgxVerticalTimelineModule } from 'ngx-vertical-timeline';
 import { ClassComponent } from './class/class.component';
 import { ClassFormComponent } from './class-form/class-form.component';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { ClassFormComponent } from './class-form/class-form.component';
     FormsModule,
     NgxVerticalTimelineModule
   ],
-  providers: [DbServiceService],
+  providers: [DbServiceService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

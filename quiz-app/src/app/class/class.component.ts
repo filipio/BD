@@ -13,6 +13,7 @@ export class ClassComponent {
   user: any;
   classID: any;
   categories: any;
+  cat_checked: number = 0;
 
   constructor(private service : DbServiceService, private dataService : DataService) {
     dataService.currentItem.subscribe(item => {this.classID = item; this.setup()});
@@ -27,5 +28,9 @@ export class ClassComponent {
     }
 
    }
+   moveToClass(index : number){
+    this.cat_checked = this.categories[index].CategoryID;
+    console.log("index is : ", index);
+  }
 
 }

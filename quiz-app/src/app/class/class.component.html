@@ -1,9 +1,10 @@
 <app-header></app-header>
 <div class="vertical-menu">
     <ul class="list-group">   
-        <li *ngFor = "let category of categories" class="list-group-item list-group-item-primary">
-            {{category.Categoryname}}
+        <li *ngFor = "let category of categories; let i = index" class="list-group-item list-group-item-primary">
+            <button (click) = "moveToClass(i)" class="btn btn-primary">{{category.Categoryname}}</button>
         </li>
       </ul>
 </div>
-<app-timeline id= "timeline"></app-timeline>
+<app-timeline *ngIf="cat_checked == 0" id= "timeline"></app-timeline>
+<app-class-form *ngIf="cat_checked > 0 " id ="classForm" [currCategory] = "cat_checked"></app-class-form>

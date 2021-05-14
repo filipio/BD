@@ -1,8 +1,5 @@
 
-
-
-
-<form [formGroup]="quizForm">
+<form [formGroup]="createQuizForm">
     <h1>Create Quiz</h1>
     <div class="form-group">
       <label>Quiz Name</label>
@@ -10,15 +7,15 @@
     </div>
     <div class="form-group">
         <label>Start date</label>
-        <input type="datetime" class="form-control" formControlName="start_date">
+        <input type="datetime-local" class="form-control" formControlName="start_date">
     </div>
     <div class="form-group">
         <label>End date</label>
-        <input type="datetime" class="form-control" formControlName="end_date">
+        <input type="datetime-local" class="form-control" formControlName="end_date">
     </div>
     <div class="form-group">
         <label>Number of questions</label>
-        <input type="text" class="form-control" formControlName="answer2">
+        <input type="text" class="form-control" formControlName="num_of_questions">
     </div>
 
     <button type="button"(click) = "addQuiz()" class="btn btn-primary">CREATE QUIZ</button>

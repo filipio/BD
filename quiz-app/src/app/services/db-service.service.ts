@@ -17,6 +17,7 @@ export class DbServiceService {
     urlQuestions = "http://localhost:3000/questions";
     urlCategories = "http://localhost:3000/categories";
     urlQuiz = "http://localhost:3000/quiz";
+    
   constructor(private http : HttpClient) {
 
    }
