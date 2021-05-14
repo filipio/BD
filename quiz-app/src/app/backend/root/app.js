@@ -146,7 +146,7 @@ app.get('/questions/:userID', (req, res) => {
 })
 
 
-app.post('/questions', function(req, res) {
+app1.post('/questions', function(req, res) {
     let ind = Math.floor(Math.random()*4);
 
     let arr = [req.body.correct, req.body.answer1, req.body.answer2, req.body.answer3];
@@ -170,7 +170,7 @@ app.post('/questions', function(req, res) {
 });
 
 
-app.get('/quizes/:quizID', (req, res) => {
+app1.get('/quizes/:quizID', (req, res) => {
     console.log("Trying to get quiz");
     var quizID = req.params.quizID;
     connection.query('SELECT QuestionID FROM QuizSet WHERE QuizID = ?',[quizID],
@@ -234,7 +234,7 @@ app.get('/quizes/:quizID', (req, res) => {
     })
 });
 
-app.post('/quizes', function(req, res) {
+app1.post('/quizes', function(req, res) {
     connection.query('CALL addQuizParticipant(?, ?, ?)', 
     [req.body.quizID, req.body.userID, req.body.score], (err, results ) => {
         if(err) {
