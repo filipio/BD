@@ -15,7 +15,7 @@ export class DbServiceService {
     url = "http://localhost:3000/users";
     urlClasses = "http://localhost:3000/classes";
     urlQuestions = "http://localhost:3000/questions";
-
+    urlCategories = "http://localhost:3000/categories";
   constructor(private http : HttpClient) {
 
    }
@@ -59,5 +59,10 @@ export class DbServiceService {
    {
       console.log(this.getUser().UserID);
       this.http.post(this.urlClasses, {userID : this.getUser().UserID, classCode : code}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
+   }
+   getCategories(classID)
+   {
+     console.log("Trying to get categories for "+ classID);
+     return this.http.get(`${this.urlCategories}/${classID}`);
    }
 }

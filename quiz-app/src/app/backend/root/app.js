@@ -160,3 +160,29 @@ app.post('/questions', function(req, res) {
     })
 });
 
+app.get('/categories/:classID', (req, res) => {
+    console.log("Trying to get categories");
+    var classID = req.params.classID;
+    connection.query('SELECT * FROM Category WHERE ClassID = ?',[classID],
+     (err, results) => {
+        if(err) {
+            console.log("error occured.");
+            console.error(err);
+            res.status(500).json({error : 'error'});
+        }
+        else{
+            console.log("OK!");
+            console.log(results);
+            if(results.length  > 0 )
+                if(results)
+                    res.status(200).json(results);
+                else
+                    res.status(500).json({msg : 'error'});
+            else{
+                res.status(500).json({error : 'error'});
+            }
+        }
+
+    })
+})
+

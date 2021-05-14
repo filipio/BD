@@ -13,6 +13,7 @@ import { MyQuestionsComponent } from './my-questions/my-questions.component';
 import { DbServiceService } from './services/db-service.service';
 import { TimelineComponent } from './timeline/timeline.component';
 import { NgxVerticalTimelineModule } from 'ngx-vertical-timeline';
+import { ClassComponent } from './class/class.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NgxVerticalTimelineModule } from 'ngx-vertical-timeline';
     HomeComponent,
     HeaderComponent,
     MyQuestionsComponent,
-    TimelineComponent
+    TimelineComponent,
+    ClassComponent
   ],
   imports: [
     BrowserModule,

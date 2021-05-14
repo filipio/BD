@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DbServiceService } from '../services/db-service.service';
 
 @Component({
@@ -8,12 +9,15 @@ import { DbServiceService } from '../services/db-service.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private service : DbServiceService) { }
+  constructor(private service : DbServiceService, private router : Router) { }
 
   classes: any
   ngOnInit(): void {
     this.service.getClasses().subscribe(data => this.classes = data);
   }
 
+  openClass(){
+    this.router.navigate(['class']);
+  }
   
 }

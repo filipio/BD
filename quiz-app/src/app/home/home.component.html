@@ -1,5 +1,6 @@
 <app-header></app-header>
 <h1>HOME IS WORKING!</h1>
-<li *ngFor = "let class of classes">
+<li *ngFor = "let class of classes; index as i">
     {{class.Name}}
 </li>
+<button type="button" (click)="openClass()">Class XD</button>
