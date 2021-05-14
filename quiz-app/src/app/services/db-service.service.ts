@@ -53,7 +53,7 @@ export class DbServiceService {
 
    createQuestion(sentence, correct, answer1, answer2, answer3)
    {
-      this.http.post(this.urlQuestions, {sentence: sentence, userID: this.getUser().UserID, correct: correct, answer1: answer1, answer2: answer2, answer3: answer3}).subscribe(data => console.log(data))
+      return this.http.post(this.urlQuestions, {sentence: sentence, userID: this.getUser().UserID, correct: correct, answer1: answer1, answer2: answer2, answer3: answer3});
    };
    joinClassByCode(code)
    {
