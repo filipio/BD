@@ -56,7 +56,7 @@ app.get('/users/:email/:password', (req, res) => {
 
 
 
-    app.get('/classes/:userID', (req, res) => {
+app.get('/classes/:userID', (req, res) => {
         var userID = req.params.userID;
         connection.query('SELECT * FROM Class INNER JOIN ClassParticipant ON Class.ClassID = ClassParticipant.ClassID AND ClassParticipant.UserID = ?',[userID],
          (err, results) => {
@@ -72,7 +72,7 @@ app.get('/users/:email/:password', (req, res) => {
                     if(results)
                         res.status(200).json(results);
                     else
-                        res.status(500).json({msg : 'error'});
+                        res.status(500).json({msg : 'no classes for given user.'});
                 else{
                     res.status(500).json({error : 'error'});
                 }
@@ -146,7 +146,7 @@ app.get('/questions/:userID', (req, res) => {
 })
 
 
-app1.post('/questions', function(req, res) {
+app.post('/questions', function(req, res) {
     let ind = Math.floor(Math.random()*4);
 
     let arr = [req.body.correct, req.body.answer1, req.body.answer2, req.body.answer3];
@@ -170,7 +170,7 @@ app1.post('/questions', function(req, res) {
 });
 
 
-app1.get('/quizes/:quizID', (req, res) => {
+app.get('/quizes/:quizID', (req, res) => {
     console.log("Trying to get quiz");
     var quizID = req.params.quizID;
     connection.query('SELECT QuestionID FROM QuizSet WHERE QuizID = ?',[quizID],
@@ -234,7 +234,36 @@ app1.get('/quizes/:quizID', (req, res) => {
     })
 });
 
-app1.post('/quizes', function(req, res) {
+
+
+
+app.get('/categories/:classID', (req, res) => {
+    console.log("Trying to get categories");
+    var classID = req.params.classID;
+    connection.query('SELECT * FROM Category WHERE ClassID = ?',[classID],
+     (err, results) => {
+        if(err) {
+            console.log("error occured.");
+            console.error(err);
+            res.status(500).json({error : 'error'});
+        }
+        else{
+            console.log("OK!");
+            console.log(results);
+            if(results.length  > 0 )
+                if(results)
+                    res.status(200).json(results);
+                else
+                    res.status(500).json({msg : 'no categories for given class.'});
+            else{
+                res.status(500).json({error : 'error'});
+            }
+        }
+
+    })
+});
+
+app.post('/quizes', function(req, res) {
     connection.query('CALL addQuizParticipant(?, ?, ?)', 
     [req.body.quizID, req.body.userID, req.body.score], (err, results ) => {
         if(err) {
@@ -245,6 +274,20 @@ app1.post('/quizes', function(req, res) {
         else{
             console.log("ok posting quizParticipant!");
             res.status(200).json({status : 'ok posting quizParticipant!'});
+        }
+    })
+});
+
+app.post('/quiz', function(req, res) {
+    connection.query('CALL createQuiz(?,?,?,?,?)', [req.body.categoryID, req.body.title, req.body.start, req.body.end, req.body.n_of_questions], (err, results ) => {
+        if(err) {
+            console.log("error occured during posting quiz.");
+            console.error(err);
+            res.status(500).json({status : 'error during posting quiz'});
+        }
+        else{
+            console.log("ok posting quiz!");
+            res.status(200).json({status : 'ok posting quiz!'});
         }
     })
 });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DbServiceService } from '../services/db-service.service';
 import {FormControl, FormGroup} from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
+import {mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-questions',
@@ -36,8 +37,10 @@ export class MyQuestionsComponent implements OnInit {
   submit(): void {
     const form = this.questionForm.value;
     console.log(form.sentence);
-    this.service.createQuestion(form.sentence, form.correct, form.answer1, form.answer2, form.answer3);
-    this.router.navigate(['home']);
-    //this.router.navigate(['myquestions']);
+    this.service.createQuestion(form.sentence, form.correct, form.answer1, form.answer2, form.answer3)
+    .pipe(mergeMap((response) => {
+        return this.service.getQuestions();
+    }))
+    .subscribe((updatedQuestions)=> this.questions = updatedQuestions);
   }
 }

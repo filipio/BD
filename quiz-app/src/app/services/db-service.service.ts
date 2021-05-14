@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {HttpParams} from "@angular/common/http";
 import { Observable } from 'rxjs';
-import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,9 @@ export class DbServiceService {
     urlClasses = "http://localhost:3000/classes";
     urlQuestions = "http://localhost:3000/questions";
     urlQuizes = "http://localhost:3000/quizes";
-
+    urlCategories = "http://localhost:3000/categories";
+    urlQuiz = "http://localhost:3000/quiz";
+    
   constructor(private http : HttpClient) {
 
    }
@@ -54,8 +55,8 @@ export class DbServiceService {
 
    createQuestion(sentence, correct, answer1, answer2, answer3)
    {
-      this.http.post(this.urlQuestions, {sentence: sentence, userID: this.getUser().UserID, correct: correct, answer1: answer1, answer2: answer2, answer3: answer3}).subscribe(data => console.log(data))
-   }
+      return this.http.post(this.urlQuestions, {sentence: sentence, userID: this.getUser().UserID, correct: correct, answer1: answer1, answer2: answer2, answer3: answer3});
+   };
    joinClassByCode(code)
    {
       console.log(this.getUser().UserID);
@@ -72,5 +73,15 @@ export class DbServiceService {
    addQuizParticipant(quizID, score)
    {
       this.http.post(this.urlQuizes, {quizID: quizID, userID: this.getUser().UserID, score: score}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
+   }
+   getCategories(classID)
+   {
+     console.log("Trying to get categories for "+ classID);
+     return this.http.get(`${this.urlCategories}/${classID}`);
+   }
+
+   createQuiz(categoryID,quiz_name, start_date, end_date, num_of_questions){
+      console.log("Posting Quiz")
+      this.http.post(this.urlQuiz, {categoryID: categoryID, title: quiz_name, start: start_date, end: end_date, n_of_questions: num_of_questions}).subscribe(data => console.log(data));
    }
 }

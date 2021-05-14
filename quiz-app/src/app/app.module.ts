@@ -13,8 +13,14 @@ import { MyQuestionsComponent } from './my-questions/my-questions.component';
 import { DbServiceService } from './services/db-service.service';
 import { TimelineComponent } from './timeline/timeline.component';
 import { NgxVerticalTimelineModule } from 'ngx-vertical-timeline';
+<<<<<<< HEAD
 import { QuizComponent } from './quiz/quiz.component';
 
+=======
+import { ClassComponent } from './class/class.component';
+import { ClassFormComponent } from './class-form/class-form.component';
+import { DatePipe } from '@angular/common';
+>>>>>>> a2c0f4b69ef04fe1f8e4cb1fac3a2a5d8a3c163f
 
 @NgModule({
   declarations: [
@@ -25,7 +31,12 @@ import { QuizComponent } from './quiz/quiz.component';
     HeaderComponent,
     MyQuestionsComponent,
     TimelineComponent,
+<<<<<<< HEAD
     QuizComponent
+=======
+    ClassComponent,
+    ClassFormComponent
+>>>>>>> a2c0f4b69ef04fe1f8e4cb1fac3a2a5d8a3c163f
   ],
   imports: [
     BrowserModule,
@@ -35,7 +46,7 @@ import { QuizComponent } from './quiz/quiz.component';
     FormsModule,
     NgxVerticalTimelineModule
   ],
-  providers: [DbServiceService],
+  providers: [DbServiceService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

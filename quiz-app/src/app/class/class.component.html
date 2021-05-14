@@ -1,0 +1,12 @@
+<app-header></app-header>
+<h2>Welcome to {{classItem.className}}</h2>
+<h6>Class code : {{classItem.classCode}}</h6>
+<div class="d-flex">
+    <ul class="list-group align-self-start">   
+        <li *ngFor = "let category of categories; let i = index" class="list-group-item list-group-item-primary">
+            <button (click) = "moveToClass(i)" class="btn btn-primary">{{category.Categoryname}}</button>
+        </li>
+    </ul>
+    <app-timeline *ngIf="cat_checked == 0" id= "timeline"></app-timeline>
+    <app-class-form *ngIf="cat_checked > 0 " id ="classForm" [currCategory] = "cat_checked"></app-class-form>
+</div>
