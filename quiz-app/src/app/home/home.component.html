@@ -1,5 +1,5 @@
 <app-header></app-header>
 <h1>HOME IS WORKING!</h1>
-<li *ngFor = "let class of classes; index as i">
-     <button (click) = "moveToClass(index)" class="btn btn-primary">{{class.Name}}</button>
+<li *ngFor = "let class of classes; let i = index">
+     <button (click) = "moveToClass(i)" class="btn btn-primary">{{class.Name}}</button>
 </li>

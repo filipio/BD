@@ -14,7 +14,8 @@ const routes: Routes = [
     {path : 'login', component : LoginComponent},
     {path : 'myquestions', component : MyQuestionsComponent},
     {path : 'timeline', component : TimelineComponent},
-    {path : 'class', component: ClassComponent}
+    {path : 'class', component: ClassComponent},
+    {path : 'class/:className', component : ClassComponent}
 ];
 
 @NgModule({
