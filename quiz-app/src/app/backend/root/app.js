@@ -136,9 +136,9 @@ app.get('/questions/:userID', (req, res) => {
                 if(results)
                     res.status(200).json(results);
                 else
-                    res.status(500).json({msg : 'error'});
+                    res.status(500).json({msg : 'error1'});
             else{
-                res.status(500).json({error : 'error'});
+                res.status(500).json({error : 'error1'});
             }
         }
 
@@ -178,7 +178,7 @@ app.get('/quizes/:quizID', (req, res) => {
         if(err) {
             console.log("error occured during getting QuestionIDs");
             console.error(err);
-            res.status(500).json({error : 'error'});
+            res.status(500).json({error : 'error1'});
         }
         else{
             let allQuestions = [];
@@ -225,9 +225,9 @@ app.get('/quizes/:quizID', (req, res) => {
                         
                     }
                 else
-                    res.status(500).json({msg : 'error'});
+                    res.status(500).json({msg : 'error1'});
             else{
-                res.status(500).json({error : 'error'});
+                res.status(500).json({error : 'error1'});
             }
         }
 
