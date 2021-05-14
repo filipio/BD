@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
 import { DbServiceService } from '../services/db-service.service';
 
 @Component({
@@ -6,19 +8,24 @@ import { DbServiceService } from '../services/db-service.service';
   templateUrl: './class.component.html',
   styleUrls: ['./class.component.css']
 })
-export class ClassComponent implements OnInit {
+export class ClassComponent {
 
   user: any;
   classID: any;
   categories: any;
 
-  constructor(private service : DbServiceService) { }
+  constructor(private service : DbServiceService, private dataService : DataService) {
+    dataService.currentItem.subscribe(item => {this.classID = item; this.setup()});
+   }
 
-  ngOnInit(): void {
-    this.classID =2; 
-    this.user = this.service.getUser();
-    this.service.getCategories(this.classID).subscribe(data => this.categories = data);
+   setup(){
+    if(this.classID && this.classID > 0){
+        this.user = this.service.getUser();
+        this.service.getCategories(this.classID)
+        .subscribe(data => this.categories = data,
+        (error : HttpErrorResponse) => {console.log(error)});
+    }
 
-  }
+   }
 
 }

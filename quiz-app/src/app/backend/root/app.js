@@ -56,7 +56,7 @@ app.get('/users/:email/:password', (req, res) => {
 
 
 
-    app.get('/classes/:userID', (req, res) => {
+app.get('/classes/:userID', (req, res) => {
         var userID = req.params.userID;
         connection.query('SELECT * FROM Class INNER JOIN ClassParticipant ON Class.ClassID = ClassParticipant.ClassID AND ClassParticipant.UserID = ?',[userID],
          (err, results) => {
@@ -72,7 +72,7 @@ app.get('/users/:email/:password', (req, res) => {
                     if(results)
                         res.status(200).json(results);
                     else
-                        res.status(500).json({msg : 'error'});
+                        res.status(500).json({msg : 'no classes for given user.'});
                 else{
                     res.status(500).json({error : 'error'});
                 }
@@ -177,7 +177,7 @@ app.get('/categories/:classID', (req, res) => {
                 if(results)
                     res.status(200).json(results);
                 else
-                    res.status(500).json({msg : 'error'});
+                    res.status(500).json({msg : 'no categories for given class.'});
             else{
                 res.status(500).json({error : 'error'});
             }
