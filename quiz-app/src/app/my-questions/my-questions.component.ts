@@ -18,11 +18,11 @@ export class MyQuestionsComponent implements OnInit {
   {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.questionForm = new FormGroup({
-      sentence: new FormControl('Question'),
-      correct: new FormControl('Correct answer'),
-      answer1 : new FormControl("Incorrect answer"),
-      answer2 : new FormControl("Incorrect answer"),
-      answer3 : new FormControl("Incorrect answer"),
+      sentence: new FormControl(''),
+      correct: new FormControl(''),
+      answer1 : new FormControl(""),
+      answer2 : new FormControl(""),
+      answer3 : new FormControl(""),
 
     });
   }

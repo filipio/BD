@@ -15,6 +15,7 @@ export class DbServiceService {
     url = "http://localhost:3000/users";
     urlClasses = "http://localhost:3000/classes";
     urlQuestions = "http://localhost:3000/questions";
+    urlQuizes = "http://localhost:3000/quizes";
 
   constructor(private http : HttpClient) {
 
@@ -54,10 +55,22 @@ export class DbServiceService {
    createQuestion(sentence, correct, answer1, answer2, answer3)
    {
       this.http.post(this.urlQuestions, {sentence: sentence, userID: this.getUser().UserID, correct: correct, answer1: answer1, answer2: answer2, answer3: answer3}).subscribe(data => console.log(data))
-   };
+   }
    joinClassByCode(code)
    {
       console.log(this.getUser().UserID);
       this.http.post(this.urlClasses, {userID : this.getUser().UserID, classCode : code}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
+   }
+
+   getQuiz(quizID)
+   {
+      console.log("Trying to get quiz ", quizID);
+      console.log(`${this.urlQuizes}/${quizID}`);
+      return this.http.get(`${this.urlQuizes}/${quizID}`);
+   }
+
+   addQuizParticipant(quizID, score)
+   {
+      this.http.post(this.urlQuizes, {quizID: quizID, userID: this.getUser().UserID, score: score}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
    }
 }

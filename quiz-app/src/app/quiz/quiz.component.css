@@ -1,0 +1,17 @@
+form {
+  margin: 20px;
+}
+
+div {
+  margin: 20px;
+  margin-top: 10px;
+}
+
+button {
+  width: 300px;
+}
+
+#done {
+  margin-top: 50px;
+  width: 200px;
+}
