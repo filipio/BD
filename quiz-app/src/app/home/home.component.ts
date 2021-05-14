@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DbServiceService } from '../services/db-service.service';
+import {Class} from '../model/Class';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
     console.log("index is : ", index);
     this.router.navigate(['class', toLoadClass.Name]).then((fulfilled : boolean) => {
         console.log("navigating successfully.");
-        this.dataService.changeMessage(toLoadClass.ClassID);
+        this.dataService.changeMessage(new Class(toLoadClass.ClassID, toLoadClass.Name, toLoadClass.ClassCode));
     })
   }
   

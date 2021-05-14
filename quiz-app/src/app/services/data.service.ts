@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject} from 'rxjs';
+import {Class} from '../model/Class';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-    private itemSource = new BehaviorSubject<number>(-1);
+    private itemSource = new BehaviorSubject<Class>(new Class(-1, "", ""));
     currentItem = this.itemSource.asObservable();
 
     
 
   constructor() { }
 
-  changeMessage(id : number){
-    this.itemSource.next(id);
+  changeMessage(classObject : Class){
+    this.itemSource.next(classObject);
   }
 }
