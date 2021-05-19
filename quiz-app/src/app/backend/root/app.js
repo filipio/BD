@@ -3,7 +3,8 @@
 var express = require('express');
 const bodyParser = require('body-parser');
 const port = 3000;
-var mysql = require('mysql')
+var mysql = require('mysql');
+const { interval } = require('rxjs');
 var connection = mysql.createConnection({
     host: 'mysql.agh.edu.pl',
     user: 'karolzaj',
@@ -263,7 +264,7 @@ app.get('/categories/:classID', (req, res) => {
     })
 });
 
-app.post('/quizes', function(req, res) {
+app.post('/quizParticipants', function(req, res) { // needs to be renamed - confusing n
     connection.query('CALL addQuizParticipant(?, ?, ?)', 
     [req.body.quizID, req.body.userID, req.body.score], (err, results ) => {
         if(err) {
@@ -278,7 +279,7 @@ app.post('/quizes', function(req, res) {
     })
 });
 
-app.post('/quiz', function(req, res) {
+app.post('/quizes', function(req, res) {
     connection.query('CALL createQuiz(?,?,?,?,?)', [req.body.categoryID, req.body.title, req.body.start, req.body.end, req.body.n_of_questions], (err, results ) => {
         if(err) {
             console.log("error occured during posting quiz.");
@@ -292,3 +293,29 @@ app.post('/quiz', function(req, res) {
     })
 });
 
+app.get('/quizes', function(req, res){
+    console.log("id of class : ", req.query.id);
+    console.log("count of elements : ", req.query.count);
+    console.log(req.query);
+    console.log("parsed id : ", parseInt(req.query.id));
+    console.log("parsed count : " , parseInt(req.query.count));
+
+    connection.query('SELECT * FROM Quiz JOIN Category C on Quiz.CategoryID = C.CategoryID WHERE ClassID = ? ORDER BY StartDate DESC LIMIT ? ', [parseInt(req.query.id), parseInt(req.query.count) ],
+    (err, results) => {
+        if(err){
+            console.log("error occured when geting quizes.");
+            console.error(err);
+            res.status(500).json({status : 'error during getting quiz'});
+        }
+        else{
+            if(results.length > 0){
+                if(results)
+                    res.status(200).json(results);
+                else
+                    res.status(500).json({status : "no results"});
+            }
+            else
+                res.status(500).json({status : "no results"});
+        }
+    })
+});

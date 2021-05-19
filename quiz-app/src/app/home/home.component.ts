@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { DbServiceService } from '../services/db-service.service';
+import { DbService } from '../services/db.service';
 import {Class} from '../model/Class';
 
 @Component({
@@ -11,7 +11,7 @@ import {Class} from '../model/Class';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private service : DbServiceService, private router : Router, private dataService : DataService) { }
+  constructor(private service : DbService, private router : Router, private dataService : DataService) { }
 
   classes: any
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     console.log("index is : ", index);
     this.router.navigate(['class', toLoadClass.Name]).then((fulfilled : boolean) => {
         console.log("navigating successfully.");
-        this.dataService.changeMessage(new Class(toLoadClass.ClassID, toLoadClass.Name, toLoadClass.ClassCode));
+        this.dataService.changeClass(new Class(toLoadClass.ClassID, toLoadClass.Name, toLoadClass.ClassCode));
     })
   }
   

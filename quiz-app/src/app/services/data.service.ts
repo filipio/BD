@@ -7,14 +7,20 @@ import {Class} from '../model/Class';
   providedIn: 'root'
 })
 export class DataService {
-    private itemSource = new BehaviorSubject<Class>(new Class(-1, "", ""));
-    currentItem = this.itemSource.asObservable();
+    private classSource = new BehaviorSubject<Class>(new Class(-1, "", ""));
+    private quizSource = new BehaviorSubject<number>(-1);
+    currentClass = this.classSource.asObservable();
+    currentQuiz = this.quizSource.asObservable();
 
     
 
   constructor() { }
 
-  changeMessage(classObject : Class){
-    this.itemSource.next(classObject);
+  changeClass(classObject : Class){
+    this.classSource.next(classObject);
+  }
+
+  changeQuiz(quizId : number){
+      this.quizSource.next(quizId);
   }
 }

@@ -7,6 +7,6 @@
             <button (click) = "moveToClass(i)" class="btn btn-primary">{{category.Categoryname}}</button>
         </li>
     </ul>
-    <app-timeline *ngIf="cat_checked == 0" id= "timeline"></app-timeline>
+    <app-timeline *ngIf="cat_checked == 0" id= "timeline" [classID] = "classItem.classID"></app-timeline>
     <app-class-form *ngIf="cat_checked > 0 " id ="classForm" [currCategory] = "cat_checked"></app-class-form>
 </div>

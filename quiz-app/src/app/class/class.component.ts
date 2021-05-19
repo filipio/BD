@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Class } from '../model/Class';
 import { DataService } from '../services/data.service';
-import { DbServiceService } from '../services/db-service.service';
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: 'app-class',
@@ -16,8 +16,8 @@ export class ClassComponent {
   categories: any;
   cat_checked: number = 0;
 
-  constructor(private service : DbServiceService, private dataService : DataService) {
-    dataService.currentItem.subscribe(item => {this.classItem = item; this.setup()});
+  constructor(private service : DbService, private dataService : DataService) {
+    dataService.currentClass.subscribe(item => {this.classItem = item; this.setup()});
    }
 
    setup(){

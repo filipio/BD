@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DbServiceService } from 'src/app/services/db-service.service';
+import { DbService } from 'src/app/services/db.service';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import {NgForm} from '@angular/forms';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private service: DbServiceService) { }
+  constructor(private service: DbService) { }
 
   userInfo: any;
   classCode: any;
@@ -27,8 +27,8 @@ export class HeaderComponent implements OnInit {
     else return false;
   }
   public logOut(){
-    //this.userInfo=undefined;
-    //this.service.currUser=undefined;
+    this.userInfo=undefined;
+    this.service.currUser=undefined;
   }
 
   joinClass(){

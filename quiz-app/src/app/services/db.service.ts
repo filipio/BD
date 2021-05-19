@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DbServiceService {
+export class DbService {
 
     currUserDataFlow : any;
     currUser : any;
@@ -16,7 +16,7 @@ export class DbServiceService {
     urlQuestions = "http://localhost:3000/questions";
     urlQuizes = "http://localhost:3000/quizes";
     urlCategories = "http://localhost:3000/categories";
-    urlQuiz = "http://localhost:3000/quiz";
+    urlQuizParticipants = "http://localhost:3000/quizParticipants"
     
   constructor(private http : HttpClient) {
 
@@ -72,7 +72,7 @@ export class DbServiceService {
 
    addQuizParticipant(quizID, score)
    {
-      this.http.post(this.urlQuizes, {quizID: quizID, userID: this.getUser().UserID, score: score}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
+      this.http.post(this.urlQuizParticipants, {quizID: quizID, userID: this.getUser().UserID, score: score}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
    }
    getCategories(classID)
    {
@@ -82,6 +82,10 @@ export class DbServiceService {
 
    createQuiz(categoryID,quiz_name, start_date, end_date, num_of_questions){
       console.log("Posting Quiz")
-      this.http.post(this.urlQuiz, {categoryID: categoryID, title: quiz_name, start: start_date, end: end_date, n_of_questions: num_of_questions}).subscribe(data => console.log(data));
+      this.http.post(this.urlQuizes, {categoryID: categoryID, title: quiz_name, start: start_date, end: end_date, n_of_questions: num_of_questions}).subscribe(data => console.log(data));
+   }
+
+   getQuizes(classID, count){
+       return this.http.get(`${this.urlQuizes}/?id=${classID}&count=${count}`);
    }
 }

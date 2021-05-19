@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DbServiceService } from '../services/db-service.service';
+import { DbService } from '../services/db.service';
 import {FormControl, FormGroup} from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import {mergeMap} from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class MyQuestionsComponent implements OnInit {
   user: any
   questionForm: FormGroup;
 
-  constructor(private service : DbServiceService, private route: ActivatedRoute, private router: Router) 
+  constructor(private service : DbService, private route: ActivatedRoute, private router: Router) 
   {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.questionForm = new FormGroup({

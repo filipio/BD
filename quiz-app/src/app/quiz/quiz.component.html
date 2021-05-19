@@ -3,6 +3,7 @@
 
 <form *ngIf="!this.finished">
     <h1>Quiz</h1>
+    <!-- line below gives error when quiz is undefined -->
     <h2>Question: {{this.quiz[idn].details.Data}}</h2>
     <h3>Score: {{this.score}}</h3>
     <div class="form-group">

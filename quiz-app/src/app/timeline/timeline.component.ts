@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TimelineItem } from 'ngx-vertical-timeline';
+import { DataService } from '../services/data.service';
+import { DbService } from '../services/db.service';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -7,37 +10,62 @@ import { TimelineItem } from 'ngx-vertical-timeline';
 })
 export class TimelineComponent implements OnInit {
 
-    externalVariable = 'hello';
+    @Input() classID : number; 
 
+    itemsCount = 5;
     items: TimelineItem[] = [];
-  constructor() { }
+    hello = "hello";
+    
+    constructor(private db : DbService, private router : Router, private dataService : DataService) {}
+    
 
   ngOnInit(): void {   
-    this.items.push({
-        label: this.externalVariable,
-        icon: 'fa fa-calendar-plus-o',
-        styleClass: 'teste',
-        content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-        title: '18 de June, 2019, 10:12',
-        command() {
-          alert(`test: ${this.externalVariable}`);
+    console.log("class id is : ", this.classID);
+    this.db.getQuizes(this.classID, this.itemsCount).subscribe(data => {
+        this.setup(data);
+    });
+    }
+
+    launchQuiz(quizID : number, quizName : string, router : Router, dataService : DataService){
+        console.log(`going to quiz ${quizID} : ${quizName} !`);
+        router.navigate(['quiz', quizName]).then((fulfilled : boolean) => {
+            console.log("navigating successfully.");
+            dataService.changeQuiz(quizID);
+        })
+    }
+
+    showQuizData(quizID : number, quizName : string, router : Router, dataService : DataService){
+        console.log(`showing quiz ${quizID} data!`);
+    }
+
+    setup(data){
+        let index = data.length-1;
+        const currDate = new Date();
+        const router = this.router;
+        const dataService = this.dataService;
+        while(index >= 0){
+            const currItem = data[index];
+            let startDate : Date = new Date(currItem.StartDate);
+            let endDate : Date = new Date(currItem.EndDate);
+            const isJoinable = startDate <= currDate && currDate <= endDate;
+            let handler = this.showQuizData;
+            let labelText = 'show data';
+            if(isJoinable){
+                handler = this.launchQuiz;
+                labelText = 'join';
+            }
+            this.items.push({
+                label : labelText,
+                icon: 'fa fa-plus',
+                styleClass : 'teste',
+                title: currItem.QuizTitle,
+                content : `${currItem.Categoryname}\nStart: ${startDate.toLocaleString()}\nEnd : ${endDate.toLocaleString()}`, 
+                command(){
+                    handler(currItem.QuizID, currItem.QuizTitle, router, dataService);
+                }
+            })
+            index--;
         }
-      });
-   
-      this.items.push({
-        label: 'Action',
-        // label: 'OtherAction',
-        icon: 'fa fa-plus',
-        styleClass: 'teste',
-        content: `Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.`,
-        title: '11 de November, 2019, 12:00',
-        command() {
-          alert('Action!');
-          console.log("action was called.");
-        }
-      });
-  }
+    }
 
 }

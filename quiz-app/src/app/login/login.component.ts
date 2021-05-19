@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import { DbServiceService } from '../services/db-service.service';
+import { DbService } from '../services/db.service';
 import {Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import {Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   addForm: FormGroup;
 
-  constructor(private service : DbServiceService, private router : Router) {
+  constructor(private service : DbService, private router : Router) {
     this.addForm = new FormGroup({
       email: new FormControl('Adres email'),
       password: new FormControl('Twoje hasło'),

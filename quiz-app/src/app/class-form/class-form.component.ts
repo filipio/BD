@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DbServiceService } from '../services/db-service.service';
+import { DbService } from '../services/db.service';
 
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -21,7 +21,7 @@ export class ClassFormComponent implements OnInit {
 
   createQuizForm: FormGroup;
 
-  constructor(private service : DbServiceService, private router: Router,private datePipe: DatePipe) {
+  constructor(private service : DbService, private router: Router,private datePipe: DatePipe) {
     this.createQuizForm = new FormGroup({
       quiz_name: new FormControl('Question'),
       start_date: new FormControl('Correct answer'),
