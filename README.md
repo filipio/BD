@@ -6,9 +6,9 @@ Projekt powiązany z przedmiotem "Bazy Danych", tworzony przez studentów AGH, W
 
 Zespół: Filip Juza, Bartosz Włodarski, Karol Zając
 Wykorzystywane technologie : 
-MySQL - silnik bazodanowy
-ExpressJS - tworzenie REST API, kontakt z bazą
-Angular - Frontend + moduł httpClient do obsługiwania http-request'ów
+MySQL - silnik bazodanowy  
+ExpressJS - tworzenie REST API, kontakt z bazą  
+Angular - Frontend (Bootstrap) + moduł httpClient do obsługiwania http-request'ów  
 
 
 
