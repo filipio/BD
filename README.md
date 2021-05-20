@@ -35,10 +35,10 @@ StartDate oraz EndDate (rankingowy)
 Uczestnicy quizów rankingowych są dodawani do Quiz Participants, wraz z zdobytym wynikiem.
 Highscore dla pojedynczych quizów i w obrębie klasy. 
 
-Dotychczas zrealizowana część aplikacji : 
-Logowanie/Rejestracja użytkownika 
-Dołączanie do klasy za pomocą kodu 
-Tworzenie pytań, podgląd do stworzonych pytań 
-Tworzenie quizu 
-Dołączanie pytań do wybranej kategorii 
-Udział w quizie 
+Dotychczas zrealizowana część aplikacji :  
+Logowanie/Rejestracja użytkownika  
+Dołączanie do klasy za pomocą kodu  
+Tworzenie pytań, podgląd do stworzonych pytań  
+Tworzenie quizu  
+Dołączanie pytań do wybranej kategorii  
+Udział w quizie  
