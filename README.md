@@ -5,9 +5,14 @@ Celem projektu jest zapoznanie się z mechanizmem komunikacji z bazą danych z p
 Projekt powiązany z przedmiotem "Bazy Danych", tworzony przez studentów AGH, WIEiT, Informatyka, rok II
 
 Zespół: Filip Juza, Bartosz Włodarski, Karol Zając
+Wykorzystywane technologie : 
+MySQL - silnik bazodanowy
+ExpressJS - tworzenie REST API, kontakt z bazą
+Angular - Frontend + moduł httpClient do obsługiwania http-request'ów
 
 
-Użytkownicy mogą dołączać do klas za pomocą specjalnego kodu, który jest udostępniony przez właściciela klasy. Klasa ma swojego ownera, który uruchamia quizy rankingowe, w których mogą(ale nie muszą ) wziąć udział członkowie klasy. Quiz jest dostępny w danym przedziale czasowym. Quizy rankingowe udostępniane są na tablicy danej klasy w formie postów. 
+
+Użytkownicy mogą dołączać do klas za pomocą specjalnego kodu, który jest udostępniony w danej klasie. Klasa ma swojego ownera, który uruchamia quizy rankingowe, w których mogą(ale nie muszą ) wziąć udział członkowie klasy. Quiz jest dostępny w danym przedziale czasowym. Quizy rankingowe udostępniane są na tablicy danej klasy w formie postów. 
 Użytkownicy mogą tworzyć pytania.
 Tworzenie pytania:
 Wpisanie question
@@ -29,3 +34,11 @@ StartDate oraz EndDate (rankingowy)
 
 Uczestnicy quizów rankingowych są dodawani do Quiz Participants, wraz z zdobytym wynikiem.
 Highscore dla pojedynczych quizów i w obrębie klasy. 
+
+Dotychczas zrealizowana część aplikacji : 
+Logowanie/Rejestracja użytkownika
+Dołączanie do klasy za pomocą kodu
+Tworzenie pytań, podgląd do stworzonych pytań
+Tworzenie quizu
+Dołączanie pytań do wybranej kategorii
+Udział w quizie
