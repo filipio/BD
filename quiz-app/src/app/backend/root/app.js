@@ -333,3 +333,30 @@ app.post('/questionsSet', function(req, res) {
         }
     })
 });
+
+
+app.get('/quizParticipants/:quizID', (req, res) => {
+    console.log("Trying to get quizParticipants" + req.params.quizID);
+    var quizID = req.params.quizID;
+    
+    connection.query('SELECT u.FirstName, u.LastName, q.Score FROM QuizParticipant q INNER JOIN User u ON u.UserID = q.UserID WHERE q.QuizID = ?',[quizID],
+     (err, results) => {
+        if(err) {
+            console.log("error occured during getting quizParticipants.");
+            console.error(err);
+            res.status(500).json({error : 'error for getting quizParticipants'});
+        }
+        else{
+            console.log("OK!");
+            console.log(results);
+            if(results.length  > 0 )
+                if(results)
+                    res.status(200).json(results);
+                else
+                    res.status(500).json({msg : 'no quizParticipants.'});
+            else{
+                res.status(500).json({error : 'error - no quizParticipants'});
+            }
+        }
+    })
+});

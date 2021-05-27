@@ -1,0 +1,6 @@
+<app-header></app-header>
+<h1>Highscore</h1>
+
+<ul class="list-group">
+    <li *ngFor="let user of quizParticipants">{{user.FirstName}} | Score: {{user.Score}}</li>
+  </ul>

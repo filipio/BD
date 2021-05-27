@@ -94,4 +94,10 @@ export class DbService {
       console.log("Posting Quiz In Category")
       this.http.post(this.urlQuestionsSet, {questionID: questionID,categoryID: categoryID}).subscribe(data => console.log(data));
    }
+   getQuizParticipants(quizID)
+   {
+     console.log("Trying to get quizParticipants for "+ quizID);
+     return this.http.get(`${this.urlQuizParticipants}/${quizID}`);
+   }
+
 }
