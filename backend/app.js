@@ -1,21 +1,23 @@
 
 
 var express = require('express');
-const bodyParser = require('body-parser');
-const port = 3000;
+const port = process.env.PORT || '3000';
+const http = require('http');
 var mysql = require('mysql');
-const { interval } = require('rxjs');
 var connection = mysql.createConnection({
-    host: 'mysql.agh.edu.pl',
-    user: 'karolzaj',
-    password: 'c1KbMPKuLxMSdNdY',
-    database: 'karolzaj',
+    host: 'database',
+    user: 'superUser',
+    password: 'secretPassword',
+    database: 'quizDB',
     multipleStatements: true
 
 })
 var app = express();
+app.set('port', port);
 
-connection.connect()
+connection.connect(function(err){
+    if(err) console.log(err);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -114,9 +116,7 @@ app.post('/classes', function(req, res) {
     })
 });
 
-app.listen(port, () => {
-    console.log(`App is listening on ${port}.`)
-})
+
 
 
 
@@ -319,3 +319,8 @@ app.get('/quizes', function(req, res){
         }
     })
 });
+
+const server = http.createServer(app);
+server.listen(port, () => {
+    console.log(`App is listening on ${port}.`)
+})
