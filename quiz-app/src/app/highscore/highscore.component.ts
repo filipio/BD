@@ -17,18 +17,28 @@ export class HighscoreComponent implements OnInit {
 
   constructor(private db : DbService, private dataService : DataService ) 
   {
-    this.dataService.currentQuiz.subscribe(data => this.trySetupQuizID(this.quizID)); 
+    this.dataService.currentQuiz.subscribe(data => this.trySetupQuizID(data)); 
   }
-
-  
-  ngOnInit(): void {}
 
   trySetupQuizID(quizID : number){
     if(quizID > 0){
         this.quizID = quizID;
-        this.db.getQuizParticipants(this.quizID).subscribe(highscore => this.quizParticipants = highscore);
+        this.db.getQuizParticipants(this.quizID).subscribe(highscore => 
+          {
+            this.quizParticipants = highscore; 
+            this.quizParticipants.sort(this.compareScores);} 
+          );
     }
   }
+
+  compareScores(a, b) {
+    return b["Score"] - a["Score"];
+ }
+
+  
+  ngOnInit(): void {}
+
+  
 
 
 

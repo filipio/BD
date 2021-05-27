@@ -336,14 +336,7 @@ app.get('/quizParticipants/:quizID', (req, res) => {
         else{
             console.log("OK!");
             console.log(results);
-            if(results.length  > 0 )
-                if(results)
-                    res.status(200).json(results);
-                else
-                    res.status(500).json({msg : 'no quizParticipants.'});
-            else{
-                res.status(500).json({error : 'error - no quizParticipants'});
-            }
+            res.status(200).json(results);
         }
 
     })

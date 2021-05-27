@@ -14,7 +14,6 @@
         </li>
         <ul class="userbox" *ngIf="isLoggedIn()">
           <li><a routerLink="/myquestions">MyQuestions</a></li>
-          <li><a routerLink="/highscore">Highscore</a></li>
           <li>{{userInfo.FirstName}}</li>
           <li><a routerLink="/login" (click)="logOut()">Log Out</a></li>
         </ul>
