@@ -17,6 +17,7 @@ const routes: Routes = [
     {path : 'myquestions', component : MyQuestionsComponent},
     {path : 'timeline', component : TimelineComponent},
     {path : 'quiz/:quizName', component : QuizComponent},
+    {path : 'quiz/:quizName/score', component : HighscoreComponent},
     {path : 'class', component: ClassComponent},
     {path : 'class/:className', component : ClassComponent},
     {path : 'highscore', component : HighscoreComponent}
