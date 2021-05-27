@@ -88,4 +88,11 @@ export class DbService {
    getQuizes(classID, count){
        return this.http.get(`${this.urlQuizes}/?id=${classID}&count=${count}`);
    }
+
+   getQuizParticipants(quizID)
+   {
+     console.log("Trying to get quizParticipants for "+ quizID);
+     return this.http.get(`${this.urlQuizParticipants}/${quizID}`);
+   }
+
 }

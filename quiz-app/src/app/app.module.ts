@@ -18,6 +18,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ClassComponent } from './class/class.component';
 import { ClassFormComponent } from './class-form/class-form.component';
 import { DatePipe } from '@angular/common';
+import { HighscoreComponent } from './highscore/highscore.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DatePipe } from '@angular/common';
     TimelineComponent,
     QuizComponent,
     ClassComponent,
-    ClassFormComponent
+    ClassFormComponent,
+    HighscoreComponent
   ],
   imports: [
     BrowserModule,
