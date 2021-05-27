@@ -14,6 +14,7 @@ export class DbService {
     url = "http://localhost:3000/users";
     urlClasses = "http://localhost:3000/classes";
     urlQuestions = "http://localhost:3000/questions";
+    urlQuestionsSet = "http://localhost:3000/questionsSet";
     urlQuizes = "http://localhost:3000/quizes";
     urlCategories = "http://localhost:3000/categories";
     urlQuizParticipants = "http://localhost:3000/quizParticipants"
@@ -89,6 +90,10 @@ export class DbService {
        return this.http.get(`${this.urlQuizes}/?id=${classID}&count=${count}`);
    }
 
+   postQuestionInCategory(questionID,categoryID){
+      console.log("Posting Quiz In Category")
+      this.http.post(this.urlQuestionsSet, {questionID: questionID,categoryID: categoryID}).subscribe(data => console.log(data));
+   }
    getQuizParticipants(quizID)
    {
      console.log("Trying to get quizParticipants for "+ quizID);

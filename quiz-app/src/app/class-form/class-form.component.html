@@ -1,6 +1,10 @@
+<div class="header">
+    <h1>{{categoryName}}</h1>
+    <button id = "return" type="button"(click) = "resetCategoryChecked()" class="btn btn-primary">Class timeline</button>
+</div>
 
 <form [formGroup]="createQuizForm">
-    <h1>Create Quiz</h1>
+    <h2>Create Quiz</h2>
     <div class="form-group">
       <label>Quiz Name</label>
       <input type="text" class="form-control" formControlName="quiz_name">
@@ -20,3 +24,16 @@
 
     <button type="button"(click) = "addQuiz()" class="btn btn-primary">CREATE QUIZ</button>
 </form>
+
+<div class="postForm">
+    <h2>Share Questions</h2>
+    <p>Choose question to post in category</p>
+        <div>
+            <select [(ngModel)]="selectedQuestion">
+                <option *ngFor="let q of questions" [value]="q.QuestionID" [selected]="selectedQuestion == q.QuestionID">{{q.Data}}</option>
+            </select>
+        </div>
+    <button type="button" (click) = "addQuestionToCategory()"class="btn btn-primary">POST QUESTION</button>
+</div>
+    
+

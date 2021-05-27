@@ -8,5 +8,5 @@
         </li>
     </ul>
     <app-timeline *ngIf="cat_checked == 0" id= "timeline" [classID] = "classItem.classID"></app-timeline>
-    <app-class-form *ngIf="cat_checked > 0 " id ="classForm" [currCategory] = "cat_checked"></app-class-form>
+    <app-class-form *ngIf="cat_checked > 0 " id ="classForm" [currCategory] = "cat_checked" [categoryName]= "categories[curr_index].Categoryname" (resetCategory) = "receiveResetFromChild()" ></app-class-form>
 </div>
