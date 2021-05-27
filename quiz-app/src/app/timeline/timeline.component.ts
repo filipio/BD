@@ -36,6 +36,10 @@ export class TimelineComponent implements OnInit {
 
     showQuizData(quizID : number, quizName : string, router : Router, dataService : DataService){
         console.log(`showing quiz ${quizID} data!`);
+        router.navigate(['quiz', quizName, 'score']).then((fulfilled : boolean) => {
+            console.log("navigating to highscores successfully.");
+            dataService.changeQuiz(quizID);
+        })
     }
 
     setup(data){
