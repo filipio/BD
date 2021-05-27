@@ -34,6 +34,7 @@ export class ClassComponent {
     }
 
    }
+
    moveToCategory(index : number){
     this.cat_checked = this.categories[index].CategoryID;
     this.curr_index=index;
