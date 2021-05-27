@@ -15,11 +15,15 @@ export class ClassComponent {
   classItem: Class;
   categories: any;
   cat_checked: number = 0;
+  curr_index:number;
+  receiveResetFromChild(){
+    this.cat_checked=0;
+  }
 
   constructor(private service : DbService, private dataService : DataService) {
     dataService.currentClass.subscribe(item => {this.classItem = item; this.setup()});
    }
-
+   
    setup(){
     if(this.classItem && this.classItem.classID > 0){
         console.log(this.classItem);
@@ -30,8 +34,9 @@ export class ClassComponent {
     }
 
    }
-   moveToClass(index : number){
+   moveToCategory(index : number){
     this.cat_checked = this.categories[index].CategoryID;
+    this.curr_index=index;
     console.log("index is : ", index);
   }
 

@@ -319,3 +319,17 @@ app.get('/quizes', function(req, res){
         }
     })
 });
+
+app.post('/questionsSet', function(req, res) {
+    connection.query('CALL addQuestionToCategory(?,?)', [req.body.questionID, req.body.categoryID], (err, results ) => {
+        if(err) {
+            console.log("error occured during posting question in category.");
+            console.error(err);
+            res.status(500).json({status : 'error during posting question in category'});
+        }
+        else{
+            console.log("ok posting question in category!");
+            res.status(200).json({status : 'ok posting question in category!'});
+        }
+    })
+});

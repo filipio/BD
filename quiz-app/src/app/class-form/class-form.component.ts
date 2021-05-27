@@ -5,8 +5,7 @@ import { DbService } from '../services/db.service';
 
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
-
-
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-class-form',
@@ -17,7 +16,15 @@ import { DatePipe } from '@angular/common';
 
 
 export class ClassFormComponent implements OnInit {
+  questions: any;
+  selectedQuestion: number;
+
   @Input() currCategory : number;
+  @Input() categoryName : string;
+  @Output() resetCategory = new EventEmitter<number>();
+  resetCategoryChecked(){
+    this.resetCategory.emit(0);
+  }
 
   createQuizForm: FormGroup;
 
@@ -29,15 +36,18 @@ export class ClassFormComponent implements OnInit {
       num_of_questions : new FormControl("Incorrect answer"),
 
     });
+
    }
 
   ngOnInit(): void {
-    
+    this.service.getQuestions().subscribe(data => this.questions = data);
   }
 
   addQuestionToCategory(){
-
+    console.log(this.selectedQuestion);
+    this.service.postQuestionInCategory(this.selectedQuestion, this.currCategory);
   }
+
 
   addQuiz(): void {
     const form = this.createQuizForm.value;
