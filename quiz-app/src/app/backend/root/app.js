@@ -323,8 +323,8 @@ app.get('/quizes', function(req, res){
 
 
 app.get('/quizParticipants/:quizID', (req, res) => {
-    console.log("Trying to get quizParticipants" + req.queryID);
-    var quizID = req.query.quizID;
+    console.log("Trying to get quizParticipants" + req.params.quizID);
+    var quizID = req.params.quizID;
     
     connection.query('SELECT u.FirstName, u.LastName, q.Score FROM QuizParticipant q INNER JOIN User u ON u.UserID = q.UserID WHERE q.QuizID = ?',[quizID],
      (err, results) => {
