@@ -13,8 +13,9 @@ export class ClassComponent {
 
   user: any;
   classItem: Class;
-  categories: any;
+  categories: any = undefined;
   cat_checked: number = 0;
+  no_categories = false
   curr_index:number;
   receiveResetFromChild(){
     this.cat_checked=0;
@@ -26,11 +27,12 @@ export class ClassComponent {
    
    setup(){
     if(this.classItem && this.classItem.classID > 0){
-        console.log(this.classItem);
         this.user = this.service.getUser();
         this.service.getCategories(this.classItem.classID)
         .subscribe(data => this.categories = data,
-        (error : HttpErrorResponse) => {console.log(error)});
+        (error : HttpErrorResponse) => {
+            this.categories = [];
+        });
     }
 
    }
@@ -38,7 +40,6 @@ export class ClassComponent {
    moveToCategory(index : number){
     this.cat_checked = this.categories[index].CategoryID;
     this.curr_index=index;
-    console.log("index is : ", index);
   }
 
 }

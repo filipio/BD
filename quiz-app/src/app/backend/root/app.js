@@ -246,18 +246,15 @@ app.get('/categories/:classID', (req, res) => {
         if(err) {
             console.log("error occured.");
             console.error(err);
-            res.status(500).json({error : 'error'});
+            res.status(500).json({error : 'database-error occured'});
         }
         else{
             console.log("OK!");
             console.log(results);
             if(results.length  > 0 )
-                if(results)
-                    res.status(200).json(results);
-                else
-                    res.status(500).json({msg : 'no categories for given class.'});
+                res.status(200).json(results);
             else{
-                res.status(500).json({error : 'error'});
+                res.status(400).json({});
             }
         }
 
@@ -294,28 +291,21 @@ app.post('/quizes', function(req, res) {
 });
 
 app.get('/quizes', function(req, res){
-    console.log("id of class : ", req.query.id);
-    console.log("count of elements : ", req.query.count);
-    console.log(req.query);
-    console.log("parsed id : ", parseInt(req.query.id));
-    console.log("parsed count : " , parseInt(req.query.count));
 
     connection.query('SELECT * FROM Quiz JOIN Category C on Quiz.CategoryID = C.CategoryID WHERE ClassID = ? ORDER BY StartDate DESC LIMIT ? ', [parseInt(req.query.id), parseInt(req.query.count) ],
     (err, results) => {
         if(err){
-            console.log("error occured when geting quizes.");
-            console.error(err);
-            res.status(500).json({status : 'error during getting quiz'});
+            res.status(500).json({status : 'database-error during getting quiz'});
         }
         else{
             if(results.length > 0){
                 if(results)
                     res.status(200).json(results);
                 else
-                    res.status(500).json({status : "no results"});
+                    res.status(400).json({status : 'nothing'});
             }
             else
-                res.status(500).json({status : "no results"});
+                res.status(400).json({});
         }
     })
 });

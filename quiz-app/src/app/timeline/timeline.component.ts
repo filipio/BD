@@ -23,7 +23,7 @@ export class TimelineComponent implements OnInit {
     console.log("class id is : ", this.classID);
     this.db.getQuizes(this.classID, this.itemsCount).subscribe(data => {
         this.setup(data);
-    });
+    }, (err : any) => {console.log("received error in timeline component.")});
     }
 
     launchQuiz(quizID : number, quizName : string, router : Router, dataService : DataService){
