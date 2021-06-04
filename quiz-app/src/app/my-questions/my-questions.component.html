@@ -23,11 +23,17 @@
     </div>
 
     <button (click) = "submit()" class="btn btn-primary">Submit</button>
-  </form>
+</form>
 
+<div *ngIf ="alert !== undefined" class="alert alert-{{alert.type}} alert-dismissible fade show" role="alert">
+    <strong>{{alert.message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()" >
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 
 <ul class="list-group">   
     <li *ngFor = "let question of questions" class="list-group-item list-group-item-primary">
         {{question.Data}}
     </li>
-  </ul>
+</ul>

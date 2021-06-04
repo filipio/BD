@@ -3,6 +3,7 @@
     <button id = "return" type="button"(click) = "resetCategoryChecked()" class="btn btn-primary">Class timeline</button>
 </div>
 
+
 <form [formGroup]="createQuizForm">
     <h2>Create Quiz</h2>
     <div class="form-group">
@@ -25,6 +26,13 @@
     <button type="button"(click) = "addQuiz()" class="btn btn-primary">CREATE QUIZ</button>
 </form>
 
+<div *ngIf ="quiz_alert !== undefined" class="alert alert-{{quiz_alert.type}} alert-dismissible fade show" role="alert">
+    <strong>{{quiz_alert.message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()" >
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <div class="postForm">
     <h2>Share Questions</h2>
     <p>Choose question to post in category</p>
@@ -35,5 +43,11 @@
         </div>
     <button type="button" (click) = "addQuestionToCategory()"class="btn btn-primary">POST QUESTION</button>
 </div>
-    
+
+<div *ngIf ="question_alert !== undefined" class="alert alert-{{question_alert.type}} alert-dismissible fade show" role="alert">
+    <strong>{{question_alert.message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()" >
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 

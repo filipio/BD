@@ -25,6 +25,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit(): void {   
     this.db.getQuizes(this.classID, this.itemsCount).subscribe(data => {
         this.setup(data);
+        console.log(data);
     }, (err : any) => {console.log("received error in timeline component.")});
     }
 
