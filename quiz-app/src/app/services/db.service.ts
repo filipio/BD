@@ -91,8 +91,8 @@ export class DbService {
    }
 
    postQuestionInCategory(questionID,categoryID){
-      console.log("Posting Quiz In Category")
-      this.http.post(this.urlQuestionsSet, {questionID: questionID,categoryID: categoryID}).subscribe(data => console.log(data));
+      console.log("Posting Question In Category")
+      return this.http.post(this.urlQuestionsSet, {questionID: questionID,categoryID: categoryID});
    }
    getQuizParticipants(quizID)
    {

@@ -1,4 +1,4 @@
-export interface Alert {
+export class Alert {
     type: string;
     message: string;
   }
