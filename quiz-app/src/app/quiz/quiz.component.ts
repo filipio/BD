@@ -13,18 +13,22 @@ export class QuizComponent {
   quizID: any;
   quiz: any;
   idn: any;
+  progress: any;
   score: any;
   answer1: any;
   answer2: any;
   answer3: any;
   answer4: any;
+  history: Array<Boolean>;
 
   constructor(private db : DbService, private dataService : DataService ) 
   {
-      this.dataService.currentQuiz.subscribe(quizID => this.trySetupQuiz(quizID)); 
+    this.dataService.currentQuiz.subscribe(quizID => this.trySetupQuiz(quizID)); 
     this.finished = false;
     this.idn = 0;
     this.score = 0;
+    this.progress = 0;
+    this.history = new Array<Boolean>();
   }
 
   trySetupQuiz(quizID : number){
@@ -44,18 +48,26 @@ export class QuizComponent {
         });
   }
 
+
   getAnswer(num)
   {
     return this.quiz[this.idn].answers[num].Sentence;
   }
 
+
   submit(num)
   {
-    if(this.quiz[this.idn].answers[num].IsCorrect)
+    if(this.quiz[this.idn].answers[num].IsCorrect["data"] == 1)
     {
       this.score++;
+      this.history.push(true);
+    }
+    else
+    {
+      this.history.push(false);
     }
     this.idn++;
+    this.progress = (this.idn/this.quiz.length) * 100;
 
     if(this.idn == this.quiz.length)
     {

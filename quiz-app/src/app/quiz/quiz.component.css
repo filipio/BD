@@ -15,3 +15,33 @@ button {
   margin-top: 50px;
   width: 200px;
 }
+
+#progress {
+  width: 60%;
+}
+
+.history {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.good {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  background-color: rgb(0, 218, 29);
+}
+
+.bad {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  background-color: rgb(255, 7, 7);
+}

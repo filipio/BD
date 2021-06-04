@@ -1,30 +1,60 @@
 <app-header></app-header>
 
+<div *ngIf="!this.finished">
+    <form>
+        <h1>Quiz</h1>
+        <!-- line below gives error when quiz is undefined -->
+        <h2>Question: {{this.quiz[idn].details.Data}}</h2>
+        <h3>Score: {{this.score}}</h3>
+        <div class="form-group">
+          <label>{{this.quiz[this.idn].details.data}}</label>
+        </div>
+        <div class="form-group">
+            <button (click) = "submit(0)" class="btn btn-primary">{{this.answer1.Sentence}}</button>
+        </div>
+        <div class="form-group">
+            <button (click) = "submit(1)" class="btn btn-primary">{{this.answer2.Sentence}}</button>
+        </div>
+        <div class="form-group">
+            <button (click) = "submit(2)" class="btn btn-primary">{{this.answer3.Sentence}}</button>
+        </div>
+        <div class="form-group">
+            <button (click) = "submit(3)" class="btn btn-primary">{{this.answer4.Sentence}}</button>
+        </div>
+      </form>
 
-<form *ngIf="!this.finished">
-    <h1>Quiz</h1>
-    <!-- line below gives error when quiz is undefined -->
-    <h2>Question: {{this.quiz[idn].details.Data}}</h2>
-    <h3>Score: {{this.score}}</h3>
-    <div class="form-group">
-      <label>{{this.quiz[this.idn].details.data}}</label>
-    </div>
-    <div class="form-group">
-        <button (click) = "submit(0)" class="btn btn-primary">{{this.answer1.Sentence}}</button>
-    </div>
-    <div class="form-group">
-        <button (click) = "submit(1)" class="btn btn-primary">{{this.answer2.Sentence}}</button>
-    </div>
-    <div class="form-group">
-        <button (click) = "submit(2)" class="btn btn-primary">{{this.answer3.Sentence}}</button>
-    </div>
-    <div class="form-group">
-        <button (click) = "submit(3)" class="btn btn-primary">{{this.answer4.Sentence}}</button>
-    </div>
-  </form>
+
+    
+    
+</div>
 
   <div *ngIf="this.finished">
       <h1>Quiz finished</h1>
       <h2>Your score: {{this.score}}</h2>
       <button id="done" class="btn btn-danger">Done</button>
   </div>
+
+  <div class="history">
+    <h3>History</h3>
+      <div *ngFor="let result of this.history; let i = index">
+          <div class="good" *ngIf="result">
+            {{i+1}}
+          </div>
+          <div class="bad" *ngIf="!result">
+            {{i+1}}
+          </div>
+        </div>
+    </div>
+
+  <div id="progress">
+      <h3>Progress</h3>
+    <div class="progress-bar progress-bar-success"
+    role="progressbar" 
+    aria-valuenow="{{this.progress}" 
+    aria-valuemin="0" 
+    aria-valuemax="100"
+    [style.width]="this.progress + '%'">
+    {{this.idn}}/{{this.quiz.length}}</div>
+  </div>
+    
+  
