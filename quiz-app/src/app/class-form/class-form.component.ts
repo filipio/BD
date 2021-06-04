@@ -71,8 +71,7 @@ export class ClassFormComponent implements OnInit {
     const form = this.createQuizForm.value;
     let s: Date = new Date(form.start_date);
     let e: Date = new Date(form.end_date);
-    this.service.createQuiz(this.currCategory ,form.quiz_name, this.datePipe.transform(s,'yyyy-MM-dd HH:mm:ss'), this.datePipe.transform(e,'yyyy-MM-dd HH:mm:ss'), form.num_of_questions).subscribe(data => {
-    }, err => this.confirmQuizPosting("err"));
+    this.service.createQuiz(this.currCategory ,form.quiz_name, this.datePipe.transform(s,'yyyy-MM-dd HH:mm:ss'), this.datePipe.transform(e,'yyyy-MM-dd HH:mm:ss'), form.num_of_questions).subscribe(data => this.confirmQuizPosting("ok"), err => this.confirmQuizPosting("err"));
   }
 
   confirmQuizPosting(status){
