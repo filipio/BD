@@ -15,61 +15,74 @@ export class TimelineComponent implements OnInit {
     itemsCount = 5;
     items: TimelineItem[] = [];
     hello = "hello";
+    userID : number;
     
-    constructor(private db : DbService, private router : Router, private dataService : DataService) {}
+    constructor(private db : DbService, private router : Router, private dataService : DataService) {
+        this.userID = db.getUser().UserID;
+    }
     
 
   ngOnInit(): void {   
-    console.log("class id is : ", this.classID);
     this.db.getQuizes(this.classID, this.itemsCount).subscribe(data => {
         this.setup(data);
     }, (err : any) => {console.log("received error in timeline component.")});
     }
 
     launchQuiz(quizID : number, quizName : string, router : Router, dataService : DataService){
-        console.log(`going to quiz ${quizID} : ${quizName} !`);
         router.navigate(['quiz', quizName]).then((fulfilled : boolean) => {
-            console.log("navigating successfully.");
             dataService.changeQuiz(quizID);
         })
     }
 
     showQuizData(quizID : number, quizName : string, router : Router, dataService : DataService){
-        console.log(`showing quiz ${quizID} data!`);
         router.navigate(['quiz', quizName, 'score']).then((fulfilled : boolean) => {
-            console.log("navigating to highscores successfully.");
             dataService.changeQuiz(quizID);
         })
     }
 
-    setup(data){
-        let index = data.length-1;
+    addItem(users, item){
         const currDate = new Date();
         const router = this.router;
         const dataService = this.dataService;
-        while(index >= 0){
-            const currItem = data[index];
-            let startDate : Date = new Date(currItem.StartDate);
-            let endDate : Date = new Date(currItem.EndDate);
-            const isJoinable = startDate <= currDate && currDate <= endDate;
-            let handler = this.showQuizData;
-            let labelText = 'show data';
-            if(isJoinable){
-                handler = this.launchQuiz;
-                labelText = 'join';
-            }
-            this.items.push({
-                label : labelText,
-                icon: 'fa fa-plus',
-                styleClass : 'teste',
-                title: currItem.QuizTitle,
-                content : `${currItem.Categoryname}\nStart: ${startDate.toLocaleString()}\nEnd : ${endDate.toLocaleString()}`, 
-                command(){
-                    handler(currItem.QuizID, currItem.QuizTitle, router, dataService);
-                }
-            })
-            index--;
+        let startDate : Date = new Date(item.StartDate);
+        let handler = this.showQuizData;
+        let labelText = 'show data';
+        let endDate : Date = new Date(item.EndDate);
+        const quizAvailable : boolean = startDate <= currDate && currDate <= endDate;
+        if((users.indexOf(this.userID) == -1) && quizAvailable ){
+            handler = this.launchQuiz;
+            labelText = 'join';
         }
+        this.items.push({
+            label : labelText,
+            icon : 'fa fa-plus',
+            styleClass : 'teste',
+            title : item.QuizTitle,
+            content : `${item.Categoryname}\nStart: ${startDate.toLocaleString()}\nEnd : ${endDate.toLocaleString()}`, 
+            command(){
+                handler(item.QuizID, item.QuizTitle, router, dataService);
+            }
+        })
+    }
+
+    setup(data){
+        const quizes = data[0];
+        let usersArr = [];
+        let index = 0;
+        
+        while(index < quizes.length){
+            const currItem = quizes[index];
+
+            if(index && currItem.QuizID != quizes[index - 1].QuizID){
+                const previousItem = quizes[index - 1];
+                this.addItem(usersArr, previousItem);
+                usersArr = [];
+            }
+            usersArr.push(currItem.UserID);
+            index++;
+        }
+        this.addItem(usersArr, quizes[index - 1]);
+        
     }
 
 }

@@ -292,20 +292,13 @@ app.post('/quizes', function(req, res) {
 
 app.get('/quizes', function(req, res){
 
-    connection.query('SELECT * FROM Quiz JOIN Category C on Quiz.CategoryID = C.CategoryID WHERE ClassID = ? ORDER BY StartDate DESC LIMIT ? ', [parseInt(req.query.id), parseInt(req.query.count) ],
+    connection.query('CALL quizesInfo(?,?)', [parseInt(req.query.id), parseInt(req.query.count) ],
     (err, results) => {
         if(err){
             res.status(500).json({status : 'database-error during getting quiz'});
         }
         else{
-            if(results.length > 0){
-                if(results)
-                    res.status(200).json(results);
-                else
-                    res.status(400).json({status : 'nothing'});
-            }
-            else
-                res.status(400).json({});
+            res.status(200).json(results);
         }
     })
 });
