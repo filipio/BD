@@ -7,6 +7,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Output, EventEmitter } from '@angular/core';
 
+interface Alert {
+  type: string;
+  message: string;
+}
+
 @Component({
   selector: 'app-class-form',
   templateUrl: './class-form.component.html',
@@ -16,6 +21,8 @@ import { Output, EventEmitter } from '@angular/core';
 
 
 export class ClassFormComponent implements OnInit {
+
+  alert: Alert;
   questions: any;
   selectedQuestion: number;
 
@@ -48,12 +55,45 @@ export class ClassFormComponent implements OnInit {
     this.service.postQuestionInCategory(this.selectedQuestion, this.currCategory);
   }
 
+  confirmQuestionPosting(status){
+    if(status == "ok"){
+      this.alert = undefined;
+      this.alert.type="success";
+      this.alert.message ="Question has been published successfully!";
+      console.log(this.alert);
+    }
+    else{
+      this.alert = undefined;
+      this.alert.type="danger";
+      this.alert.message ="Question could not been published!";
+      console.log(this.alert);
+    }
+  }
 
   addQuiz(): void {
     const form = this.createQuizForm.value;
     let s: Date = new Date(form.start_date);
     let e: Date = new Date(form.end_date);
-    this.service.createQuiz(this.currCategory ,form.quiz_name, this.datePipe.transform(s,'yyyy-MM-dd HH:mm:ss'), this.datePipe.transform(e,'yyyy-MM-dd HH:mm:ss'), form.num_of_questions);
+    this.service.createQuiz(this.currCategory ,form.quiz_name, this.datePipe.transform(s,'yyyy-MM-dd HH:mm:ss'), this.datePipe.transform(e,'yyyy-MM-dd HH:mm:ss'), form.num_of_questions).subscribe(data => this.confirmQuizPosting("ok"), err => this.confirmQuizPosting("err"));
+  }
+
+  confirmQuizPosting(status){
+    if(status == "ok"){
+      this.alert = undefined;
+      this.alert.type="success";
+      this.alert.message ="Quiz has been published successfully!";
+      console.log(this.alert);
+    }
+    else{
+      this.alert = undefined;
+      this.alert.type="danger";
+      this.alert.message ="Quiz could not be published !";
+      console.log(this.alert);
+    }
+  }
+
+  close() {
+    this.alert = undefined;
   }
 
 }

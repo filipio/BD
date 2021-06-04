@@ -83,7 +83,7 @@ export class DbService {
 
    createQuiz(categoryID,quiz_name, start_date, end_date, num_of_questions){
       console.log("Posting Quiz")
-      this.http.post(this.urlQuizes, {categoryID: categoryID, title: quiz_name, start: start_date, end: end_date, n_of_questions: num_of_questions}).subscribe(data => console.log(data));
+       return this.http.post(this.urlQuizes, {categoryID: categoryID, title: quiz_name, start: start_date, end: end_date, n_of_questions: num_of_questions});
    }
 
    getQuizes(classID, count){

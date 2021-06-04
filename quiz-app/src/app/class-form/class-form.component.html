@@ -3,6 +3,7 @@
     <button id = "return" type="button"(click) = "resetCategoryChecked()" class="btn btn-primary">Class timeline</button>
 </div>
 
+
 <form [formGroup]="createQuizForm">
     <h2>Create Quiz</h2>
     <div class="form-group">
@@ -24,6 +25,13 @@
 
     <button type="button"(click) = "addQuiz()" class="btn btn-primary">CREATE QUIZ</button>
 </form>
+
+<div *ngIf ="alert !== undefined" class="alert alert-{{alert.type}} alert-dismissible fade show" role="alert">
+    <strong>{{alert.message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()" >
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 
 <div class="postForm">
     <h2>Share Questions</h2>
