@@ -22,10 +22,13 @@ router.post('/', function(req, res) {
     connection.query('CALL createQuiz(?,?,?,?,?)', [req.body.categoryID, req.body.title, req.body.start, req.body.end, req.body.n_of_questions], (err, results ) => {
         if(err) {
             console.error(err);
-            res.status(500).json({status : 'error during posting quiz : ' + err.message});
+            res.status(500).json({error : 'error during posting quiz : ' + err.message});
         }
         else{
-            res.status(200).json({status : 'ok posting quiz!'});
+            if(results.length > 0)
+                res.status(200).json(results);
+            else
+                res.status(400).json({error : 'not enough questions to create the quiz.'});
         }
     })
 });
