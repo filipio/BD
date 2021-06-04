@@ -26,8 +26,8 @@
     <button type="button"(click) = "addQuiz()" class="btn btn-primary">CREATE QUIZ</button>
 </form>
 
-<div *ngIf ="alert !== undefined" class="alert alert-{{alert.type}} alert-dismissible fade show" role="alert">
-    <strong>{{alert.message}}</strong>
+<div *ngIf ="quiz_alert !== undefined" class="alert alert-{{quiz_alert.type}} alert-dismissible fade show" role="alert">
+    <strong>{{quiz_alert.message}}</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()" >
       <span aria-hidden="true">&times;</span>
     </button>
@@ -43,5 +43,11 @@
         </div>
     <button type="button" (click) = "addQuestionToCategory()"class="btn btn-primary">POST QUESTION</button>
 </div>
-    
+
+<div *ngIf ="question_alert !== undefined" class="alert alert-{{question_alert.type}} alert-dismissible fade show" role="alert">
+    <strong>{{question_alert.message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()" >
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 
