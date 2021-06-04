@@ -13,12 +13,7 @@ export class HighscoreComponent implements OnInit {
   quizID: any;
   quizParticipants: any;
 
-
-
-  constructor(private db : DbService, private dataService : DataService ) 
-  {
-    this.dataService.currentQuiz.subscribe(data => this.trySetupQuizID(data)); 
-  }
+  constructor(private db : DbService, private dataService : DataService ) { }
 
   trySetupQuizID(quizID : number){
     if(quizID > 0){
@@ -36,7 +31,9 @@ export class HighscoreComponent implements OnInit {
  }
 
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataService.currentQuiz.subscribe(data => this.trySetupQuizID(data)); 
+  }
 
   
 

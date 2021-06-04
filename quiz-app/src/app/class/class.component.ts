@@ -21,11 +21,9 @@ export class ClassComponent {
     this.cat_checked=0;
   }
 
-  constructor(private service : DbService, private dataService : DataService) {
-    dataService.currentClass.subscribe(item => {this.classItem = item; this.setup()});
-   }
+  constructor(private service : DbService, private dataService : DataService) {}
    
-   setup(){
+  setup(){
     if(this.classItem && this.classItem.classID > 0){
         this.user = this.service.getUser();
         this.service.getCategories(this.classItem.classID)
@@ -34,12 +32,14 @@ export class ClassComponent {
             this.categories = [];
         });
     }
-
-   }
+  }
 
    moveToCategory(index : number){
     this.cat_checked = this.categories[index].CategoryID;
     this.curr_index=index;
+  }
+  ngOnInit(){
+    this.dataService.currentClass.subscribe(item => {this.classItem = item; this.setup()});
   }
 
 }
