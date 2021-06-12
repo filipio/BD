@@ -63,7 +63,6 @@ export class DbService {
    };
    joinClassByCode(code)
    {
-      console.log(this.getUser().UserID);
       this.http.post(this.urlClasses, {userID : this.getUser().UserID, classCode : code}).subscribe(data => console.log(data), (error : HttpErrorResponse) => {console.log(error)});
    }
 

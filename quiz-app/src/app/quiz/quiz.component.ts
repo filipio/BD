@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DbService } from '../services/db.service';
 import {FormControl, FormGroup} from "@angular/forms";
 import { DataService } from '../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -21,7 +22,7 @@ export class QuizComponent {
   answer4: any;
   history: Array<Boolean>;
 
-  constructor(private db : DbService, private dataService : DataService ) 
+  constructor(private db : DbService, private dataService : DataService, private router : Router ) 
   {
     this.dataService.currentQuiz.subscribe(quizID => this.trySetupQuiz(quizID)); 
     this.finished = false;
@@ -46,6 +47,10 @@ export class QuizComponent {
           this.answer3 = this.quiz[this.idn].answers[2];
           this.answer4 = this.quiz[this.idn].answers[3];
         });
+  }
+
+  handleQuizFinished(){
+    this.router.navigate(['home']);
   }
 
 

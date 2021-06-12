@@ -31,7 +31,7 @@
   <div *ngIf="this.finished">
       <h1>Quiz finished</h1>
       <h2>Your score: {{this.score}}</h2>
-      <button id="done" class="btn btn-danger">Done</button>
+      <button id="done" class="btn btn-info" (click) = "handleQuizFinished()">Done</button>
   </div>
 
   <div class="history">
