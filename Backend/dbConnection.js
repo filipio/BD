@@ -1,13 +1,14 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: 'mysql.agh.edu.pl',
-    user: 'karolzaj',
-    password: 'c1KbMPKuLxMSdNdY',
-    database: 'karolzaj',
+    host: 'database',
+    user: 'root',
+    password: 'secretPassword',
+    database: 'quizDB',
     multipleStatements: true
 
 })
 connection.connect()
+
 
 module.exports = connection;
