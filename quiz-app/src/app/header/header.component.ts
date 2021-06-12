@@ -21,10 +21,8 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn(): boolean {
     if(this.service.currUser!==undefined){
       this.userInfo = this.service.getUser();
-      //console.log(this.userInfo);
-      return true;
     } 
-    else return false;
+    return Boolean(this.userInfo);
   }
   public logOut(){
     this.userInfo=undefined;

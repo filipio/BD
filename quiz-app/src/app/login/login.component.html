@@ -13,3 +13,7 @@
   <button (click) = "userSubmit()" class="btn btn-primary">Submit</button>
   <button class="btn btn-secondary" (click) = "moveToRegister()">Register</button>
 </form>
+
+<div *ngIf ="loginFailed == true" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Incorrect user e-mail or password!</strong>
+</div>

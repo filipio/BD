@@ -21,3 +21,7 @@
     <button type="submit" class="btn btn-primary">Register</button>
     <button class="btn btn-secondary" (click) = "moveToLogin()">Login</button>
 </form>
+
+<div *ngIf ="registered == true" class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>User successfully registered in Quiz-App!</strong>
+</div>
