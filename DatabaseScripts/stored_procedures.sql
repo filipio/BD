@@ -2,6 +2,7 @@
 # This file contains all procedures used by database to fetch and insert new data.
 # Some procedures contain their own description about what they do.
 
+
 CREATE PROCEDURE registerUser(
     IN first_name VARCHAR(50),
     IN last_name VARCHAR(50),
@@ -14,15 +15,17 @@ BEGIN
 END;
 
 
-CREATE PROCEDURE createClass(
-    IN class_name VARCHAR(50),
-    IN owner_id int(11),
-    IN join_code varchar(10)
-)
+# Procedure to create a new class by a user. After creation user is also added to that class.
+create
+    definer = karolzaj@`%` procedure createClass(IN classname varchar(50), IN ownerid int, IN joincode varchar(10))
 BEGIN
+
     INSERT INTO Class (Name, Owner, ClassCode)
-    VALUES (class_name, owner_id, join_code);
-END;
+    VALUES (classname,ownerid,joincode);
+
+    CALL joinClass(ownerid, joincode);
+end;
+
 
 # procedure to join user identified by userID to the class. 
 # classCode is a string that is unique for each class - it's visible
