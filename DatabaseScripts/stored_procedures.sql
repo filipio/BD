@@ -1,4 +1,6 @@
 #STORED PROCEDURES
+# This file contains all procedures used by database to fetch and insert new data.
+# Some procedures contain their own description about what they do.
 
 CREATE PROCEDURE registerUser(
     IN first_name VARCHAR(50),
@@ -11,6 +13,7 @@ BEGIN
     VALUES (first_name, last_name, e_mail, acc_password);
 END;
 
+
 CREATE PROCEDURE createClass(
     IN class_name VARCHAR(50),
     IN owner_id int(11),
@@ -21,9 +24,9 @@ BEGIN
     VALUES (class_name, owner_id, join_code);
 END;
 
-
-
-
+# procedure to join user identified by userID to the class. 
+# classCode is a string that is unique for each class - it's visible
+# for the users that had joined the class before. IT's NOT a primary key of Class table.
 CREATE PROCEDURE joinClass(IN _userID INT, IN _classCode VARCHAR(10))
 BEGIN
     DECLARE _classID INT;
@@ -33,7 +36,6 @@ BEGIN
 END
 
 
-
 CREATE PROCEDURE addQuizParticipant(IN _quizID INT, IN _userID INT, IN _score INT)
 BEGIN
     INSERT INTO QuizParticipant(quizid, userid, score) VALUE(_quizID, _userID, _score);
@@ -41,7 +43,8 @@ END
 
                                                                     
       
-                                                                  
+# procedure to create question that is owned by given user. Each question contains
+# 3 wrong answers and 1 that is correct.
 CREATE PROCEDURE createQuestion(
     IN sentence VARCHAR(500),
     IN user_id INT(11),
@@ -116,12 +119,12 @@ BEGIN
 end;
 
 
-
 create
     definer = karolzaj@`%` procedure addQuestionToCategory(IN q_id int, IN cat_id int)
 BEGIN
     INSERT INTO QuestionsSet(CategoryID, QuestionID) VALUES(cat_id, q_id);
 end;
+
 
 create
     definer = karolzaj@`%` procedure createCategory(IN id int, IN name varchar(50))
@@ -130,6 +133,8 @@ BEGIN
 end;
 
 
+# Procedure to create quiz. If there isn't enough questions to create one, procedure returns 0.
+# In the other procedure returns 1.
 create
     definer = karolzaj@`%` procedure createQuiz(IN Category_id int, IN title varchar(50), IN start_date datetime,
                                                 IN end_date datetime, IN q_count int)
@@ -144,6 +149,7 @@ BEGIN
         ROLLBACK;
     ELSE
         COMMIT;
+        SELECT 1 AS result;
     end if;
 end;
 
@@ -156,6 +162,8 @@ BEGIN
 end;
 
 
+# Procedure to pick set of random questions. Number of questions is given by parameter q_count.
+# Procedure returns 1 if it succeeds (if there are enough questions to pick a random set). Otherwise it returns 0.
 create
     definer = karolzaj@`%` procedure pickQuizSet(IN Quiz_id int, IN Category_id int, IN q_count int, OUT result int)
 BEGIN
@@ -173,6 +181,19 @@ BEGIN
     end if;
 end;
 
-
+# Procedure to get data about latest quizes in class identified by classID. 
+# Parameter QuizCount describes how many different quizes should be considered.
+# data is orderd by the start date of the quiz from the latest to the oldest ones.
+create
+    definer = karolzaj@`%` procedure quizesInfo(IN classID int, IN QuizCount int)
+BEGIN
+    SELECT Quiz.QuizID, QuizTitle, StartDate, EndDate, Categoryname, UserID  FROM Quiz
+    LEFT OUTER JOIN QuizParticipant QP on Quiz.QuizID = QP.QuizID
+    LEFT OUTER JOIN Category C on Quiz.CategoryID = C.CategoryID
+    WHERE C.ClassID = classID
+    AND Quiz.QuizID IN
+        (SELECT * FROM(SELECT QuizID FROM Quiz ORDER BY StartDate DESC LIMIT QuizCount) q2)
+    ORDER BY StartDate DESC;
+end;
 
 
