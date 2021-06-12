@@ -11,6 +11,7 @@ import {Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   addForm: FormGroup;
+  loginFailed : boolean;
 
   constructor(private service : DbService, private router : Router) {
     this.addForm = new FormGroup({
@@ -31,19 +32,15 @@ export class LoginComponent implements OnInit {
   userSubmit(): void {
     const form = this.addForm.value;
     this.service.user_doLogin(form.email, form.password);
-    // if(this.service.getUser() !== undefined){
-    //     console.log("user is ok.")
-    //     this.router.navigate(['home']);
-    // }
+
     this.service.currUserDataFlow.subscribe(data => {
-            this.router.navigate(['home']);
+            if(data.length != 0){
+              this.loginFailed = false;
+              this.router.navigate(['home']);
+            }
+            else this.loginFailed = true;
     }, (err : HttpErrorResponse) => {
         console.log("error with user ", err);
     })
-    // this.service.currUser.subscribe(data => this.router.navigate(['/home']), (err)
-
   }
-
-
-
 }

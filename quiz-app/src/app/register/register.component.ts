@@ -10,6 +10,7 @@ import { DbService } from '../services/db.service';
 })
 export class RegisterComponent implements OnInit {
     addForm: FormGroup;
+    registered  = false;
 
     constructor(private service : DbService, private router : Router) {
         this.addForm = new FormGroup({ 
@@ -30,5 +31,6 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     const form = this.addForm.value;
     this.service.register_user(form.email, form.password, form.name, form.lastname);
+    this.registered = true;
   }
 }
