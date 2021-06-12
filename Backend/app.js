@@ -8,8 +8,11 @@ const quizes = require("./routes/quizes");
 const connection = require('./dbConnection');
 const quizParticipants = require('./routes/quizParticipants');
 
-const port = 3000;
+const port = process.env.PORT || '3000';
 var app = express();
+
+app.set('port', port);
+
 
 
 
@@ -59,6 +62,7 @@ app.post('/questionsSet', function(req, res) {
 });
 
 
-app.listen(port, () => {
+const server = http.createServer(app);
+server.listen(port, () => {
     console.log(`App is listening on ${port}.`)
 })
