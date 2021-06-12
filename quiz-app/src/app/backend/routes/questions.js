@@ -2,6 +2,15 @@ const express = require('express')
 const connection = require('../dbConnection')
 var router = express.Router()
 
+
+/*
+    Request to get questions owned by specific user
+    Input parameters:
+    - UserID
+    Expected output:
+    - Array of questions owned by user
+
+*/
 router.get('/:userID', (req, res) => {
     var userID = req.params.userID;
     connection.query('SELECT * FROM Question WHERE UserID = ?',[userID],
@@ -17,6 +26,17 @@ router.get('/:userID', (req, res) => {
     })
 })
 
+/*
+    Request to post user's question with answers. At first request creates array 
+    with all correct and incorrect answers and then shuffles it. 
+    After that calls procedure which adds questions.
+    Input parameters:
+    - UserID
+    - Sentence of question
+    - One correct answer
+    - Three incorrect answers
+
+*/
 router.post('/', function(req, res) {
     let ind = Math.floor(Math.random()*4);
 
