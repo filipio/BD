@@ -2,6 +2,7 @@ const express = require('express')
 const connection = require('../dbConnection')
 var router = express.Router()
 
+// request to get data of user identified by given email and password.
 router.get('/:email/:password', (req, res) => {
     var email = req.params.email;
     var password = req.params.password;
@@ -18,6 +19,11 @@ router.get('/:email/:password', (req, res) => {
     })
 })
 
+// request to register user. Input parameters : 
+// -first name
+// -last name
+// -email
+// -password
 router.post('/', function(req, res) {
 connection.query('CALL registerUser(?,?,?,?)', [req.body.firstname, req.body.lastname, req.body.email, req.body.password], (err, results ) => {
     if(err) {

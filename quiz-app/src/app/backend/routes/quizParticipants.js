@@ -2,6 +2,11 @@ const express = require('express')
 const connection = require('../dbConnection')
 var router = express.Router()
 
+// request to get data of participants that took part in quiz identified by quizID
+// Output results(json format) :
+// -user name 
+// -user surname
+// -user score
 router.get('/:quizID', (req, res) => {
     var quizID = req.params.quizID;
     
@@ -17,6 +22,12 @@ router.get('/:quizID', (req, res) => {
     })
 });
 
+
+//request to add new quiz participants.
+// Input parameters : 
+// user ID
+// quiz ID
+// user score
 router.post('/', function(req, res) {
     connection.query('CALL addQuizParticipant(?, ?, ?)', 
     [req.body.quizID, req.body.userID, req.body.score], (err, results ) => {

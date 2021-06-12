@@ -36,7 +36,10 @@ export class DbService {
    user_doLogin(email, password){
 
     this.currUserDataFlow = this.http.get(`${this.url}/${email}/${password}`);
-    this.currUserDataFlow.subscribe(data => {console.log(data); this.currUser = data;}, (err : HttpErrorResponse) => {
+    this.currUserDataFlow.subscribe(data => {
+        console.log(data);
+        console.log("getting user data properly.\n");
+         this.currUser = data;}, (err : HttpErrorResponse) => {
         console.log(err);
         this.currUser = undefined;
     })

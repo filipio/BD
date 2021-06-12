@@ -2,6 +2,7 @@ const express = require('express')
 const connection = require('../dbConnection')
 var router = express.Router()
 
+// request to get data of classes for user with given ID.
 router.get('/:userID', (req, res) => {
     var userID = req.params.userID;
     connection.query('SELECT * FROM Class INNER JOIN ClassParticipant ON Class.ClassID = ClassParticipant.ClassID AND ClassParticipant.UserID = ?',[userID],
@@ -17,7 +18,10 @@ router.get('/:userID', (req, res) => {
     })
 })
 
-// name is wrong below
+// request to join user identified by userID to class, which is represented by unique classCode.
+// Input : 
+// user ID
+// classCode
 router.post('/', function(req, res) {
     connection.query('CALL joinClass(?,?)', [req.body.userID, req.body.classCode], (err, results ) => {
         if(err) {
