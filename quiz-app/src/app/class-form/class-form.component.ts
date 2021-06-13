@@ -34,10 +34,10 @@ export class ClassFormComponent implements OnInit {
 
   constructor(private service : DbService, private router: Router,private datePipe: DatePipe) {
     this.createQuizForm = new FormGroup({
-      quiz_name: new FormControl('Question'),
-      start_date: new FormControl('Correct answer'),
-      end_date : new FormControl("Incorrect answer"),
-      num_of_questions : new FormControl("Incorrect answer"),
+      quiz_name: new FormControl('Quiz Name'),
+      start_date: new FormControl('Start Data'),
+      end_date : new FormControl("End Date"),
+      num_of_questions : new FormControl("Number"),
 
     });
 
