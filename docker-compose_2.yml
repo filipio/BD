@@ -1,7 +1,7 @@
 version : '3.1'
 
 services:
-    database:
+    database: 
         build: Database
         ports:
             - "3306:3306"
@@ -10,15 +10,19 @@ services:
 
     backend:
         build: Backend
-        ports:
+        ports: 
             - "3000:3000"
         container_name: back-container
         restart: always
         links:
             - database
         command : ["./wait-for-it.sh", "-t", "40", "database:3306", "--", "node", "app.js"]
+        # above line does the following:
+            # check periodically for 40 seconds if (host:port) = database:3306 is ready
+            # if it is, run 'node app.js'
+            # app.js is the file that is connecting with the db
 
-    frontend:
+    frontend: 
         build: quiz-app
         ports:
             - "4200:4200"
